@@ -1,0 +1,546 @@
+﻿@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
+        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
+        is an ideal platform for building RESTful applications on the .NET Framework.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.get("/api/companies", function (data, status) {
+            console.log("Data : " + data + "\nStatus: " + status);
+        });
+    });
+</script>*@
+
+@*@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>JQuery Web API IT Company</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1000, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/layout.css">
+    <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    @*<script charset="utf-8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+    <script src="~/Scripts/respond.min.js"></script>
+    <script charset="utf-8" src="~/Scripts/app.js"></script>
+</head>
+<body>*@
+
+
+@*<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/Content/layout.css">*@
+@*<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>*@
+@*<script charset="utf-8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>*@
+        
+
+        @*<script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>*@
+        @*<script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>*@
+        @*<script src="~/Scripts/respond.min.js"></script>*@
+        @*<script charset="utf-8" src="~/Scripts/app.js"></script>*@
+
+@{ 
+    Layout = "~/Views/Shared/_JqueryLayout.cshtml";
+}
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />*@
+    <link rel="stylesheet" href="~/Content/layout.css">
+        <div id="page_container">
+            <h1>Largest IT Companies by Revenue</h1>
+
+            <button type="button" class="button" id="add_company">Add Company</button>
+            <table class="datatable" id="tableCompanies">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Company Name</th>
+                        <th>Industries</th>
+                        <th>Revenue</th>
+                        <th>Year</th>
+                        <th>Employess</th>
+                        <th>Market Cap</th>
+                        <th>Headquarters</th>
+                        <th>Functions</th>                  
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="lightbox_bg"></div>
+
+    @*<div class="lightbox_container">
+        <div class="lightbox_close"></div>
+        <div class="lightbox_content">
+            <h2>Add Company</h2>
+            <form class="form add" id="form-company" data-id="" novalidate>
+                <div class="input_container">
+                    <label for="rank">Rank: <span class="required"></span></label>
+                    <div class="field_container">
+                        <input type="number" step="1" min="0" class="text" name="rank" id="rank" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="company_name">Company name: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="text" class="text" name="company_name" id="company_name" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="industries">Industries: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="text" class="text" name="industries" id="industries" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="revenue">Revenue: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" step="1" min="0" class="text" name="revenue" id="revenue" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="fiscal_year">Fiscal year: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" min="0" class="text" name="fiscal_year" id="fiscal_year" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="employees">Employees: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" min="0" class="text" name="employees" id="employees" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="market_cap">Market cap: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" step="1" min="0" class="text" name="market_cap" id="market_cap" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="headquarters">Headquarters: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="text" class="text" name="headquarters" id="headquarters" value="" required>
+                    </div>
+                </div>
+                <div class="button_container">
+                    <button type="submit">Add company</button>
+                </div>
+            </form>
+        </div>
+    </div>*@
+
+    <div class="lightbox_container">
+        <div class="lightbox_close"></div>
+        <div class="lightbox_content">
+
+            <h2>Add company</h2>
+            <form class="form add" id="form_company" data-id="" novalidate>
+                <div class="input_container">
+                    <label for="rank">Rank: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" step="1" min="0" class="text" name="rank" id="rank" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="company_name">Company name: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="text" class="text" name="company_name" id="company_name" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="industries">Industries: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="text" class="text" name="industries" id="industries" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="revenue">Revenue: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" step="1" min="0" class="text" name="revenue" id="revenue" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="fiscal_year">Fiscal year: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" min="0" class="text" name="fiscal_year" id="fiscal_year" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="employees">Employees: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" min="0" class="text" name="employees" id="employees" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="market_cap">Market cap: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="number" step="1" min="0" class="text" name="market_cap" id="market_cap" value="" required>
+                    </div>
+                </div>
+                <div class="input_container">
+                    <label for="headquarters">Headquarters: <span class="required">*</span></label>
+                    <div class="field_container">
+                        <input type="text" class="text" name="headquarters" id="headquarters" value="" required>
+                    </div>
+                </div>
+                <div class="button_container">
+                    <button type="submit">Add company</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    <noscript id="noscript_container">
+        <div id="noscript" class="error">
+            <p>Javascript support is needed to use this page.</p>
+        </div>
+    </noscript>
+
+    <div id="message_container">
+        <div id="message" class="success">
+            <p>This is a success message.</p>
+        </div>
+    </div>
+
+    <div id="loading_container">
+        <div id="loading_container2">
+            <div id="loading_container3">
+                <div id="loading_container4">
+                    Loading, please wait...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+
+        <script>
+            $(document).ready(function () {
+                $("#tableCompanies").DataTable({
+                    ajax: {
+                        url: "/api/companies",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        { "data": "rank" },
+                        { "data": "name", "sClass": "company_name" },
+                        { "data": "industry" },
+                        { "data": "revenue", "sClass": "integer" },
+                        { "data": "fiscalYear", "sClass": "integer" },
+                        { "data": "employees", "sClass": "integer" },
+                        { "data": "marketCap", "sClass": "integer" },
+                        { "data": "headquarters" },
+                        //{ "data": null, "defaultContent": '<div class="functions function_buttons"><ul><li class="function_edit"><a data-id="' + 1 + '" data-name="' + name + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + 1 + '" data-name="' + name + '"><span>Delete</span></a></ul></div>'}
+                        { "data": null, "defaultContent": '<div class="functions function_buttons"><ul><li class="function_edit"><a data-id="' + data.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + 1 + '" data-name="' + name + '"><span>Delete</span></a></ul></div>' }
+                    ],
+                    "aoColumnDefs": [
+                        {"bSortable": false, "aTargets": [-1] }
+                    ],
+                    "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                    "oLanguage": {
+                        "oPaginate": {
+                            "sFirst": " ",
+                            "sPrevious": " ",
+                            "sNext": " ",
+                            "sLast": " "
+                        },
+                        "sLengthMenu": "Records per page: _MENU_",
+                        "sInfo": "Total of _TOTAL_ records (showing _START_ to _END_)",
+                        "sInfoFiltered": "(filtered from _MAX_ total records)"
+                    }
+                });
+
+                // On page load: form validation
+                jQuery.validator.setDefaults({
+                    success: 'valid',
+                    rules: {
+                        fiscal_year: {
+                            required: true,
+                            min: 2000,
+                            max: 2025
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        error.insertBefore(element);
+                    },
+                    highlight: function (element) {
+                        $(element).parent('.field_container').removeClass('valid').addClass('error');
+                    },
+                    unhighlight: function (element) {
+                        $(element).parent('.field_container').addClass('valid').removeClass('error');
+                    }
+                });
+                var form_company = $('#form_company');
+                form_company.validate();
+
+                // Show message
+                function show_message(message_text, message_type) {
+                    $('#message').html('<p>' + message_text + '</p>').attr('class', message_type);
+                    $('#message_container').show();
+                    if (typeof timeout_message !== 'undefined') {
+                        window.clearTimeout(timeout_message);
+                    }
+                    timeout_message = setTimeout(function () {
+                        hide_message();
+                    }, 8000);
+                }
+                // Hide message
+                function hide_message() {
+                    $('#message').html('').attr('class', '');
+                    $('#message_container').hide();
+                }
+
+                // Show loading message
+                function show_loading_message() {
+                    $('#loading_container').show();
+                }
+                // Hide loading message
+                function hide_loading_message() {
+                    $('#loading_container').hide();
+                }
+
+                // Show lightbox
+                function show_lightbox() {
+                    $('.lightbox_bg').show();
+                    $('.lightbox_container').show();
+                }
+                // Hide lightbox
+                function hide_lightbox() {
+                    $('.lightbox_bg').hide();
+                    $('.lightbox_container').hide();
+                }
+                // Lightbox background
+                $(document).on('click', '.lightbox_bg', function () {
+                    hide_lightbox();
+                });
+                // Lightbox close button
+                $(document).on('click', '.lightbox_close', function () {
+                    hide_lightbox();
+                });
+                // Escape keyboard key
+                $(document).keyup(function (e) {
+                    if (e.keyCode == 27) {
+                        hide_lightbox();
+                    }
+                });
+
+                // Hide iPad keyboard
+                function hide_ipad_keyboard() {
+                    document.activeElement.blur();
+                    $('input').blur();
+                }
+
+                // Add company button
+                $(document).on('click', '#add_company', function (e) {
+                    e.preventDefault();
+                    $('.lightbox_content h2').text('Add company');
+                    $('#form_company button').text('Add company');
+                    $('#form_company').attr('class', 'form add');
+                    $('#form_company').attr('data-id', '');
+                    $('#form_company .field_container label.error').hide();
+                    $('#form_company .field_container').removeClass('valid').removeClass('error');
+                    $('#form_company #rank').val('');
+                    $('#form_company #company_name').val('');
+                    $('#form_company #industries').val('');
+                    $('#form_company #revenue').val('');
+                    $('#form_company #fiscal_year').val('');
+                    $('#form_company #employees').val('');
+                    $('#form_company #market_cap').val('');
+                    $('#form_company #headquarters').val('');
+                    show_lightbox();
+                });
+
+                // Add company submit form
+                $(document).on('submit', '#form_company.add', function (e) {
+                    e.preventDefault();
+                    // Validate form
+                    if (form_company.valid() == true) {
+                        // Send company information to database
+                        hide_ipad_keyboard();
+                        hide_lightbox();
+                        show_loading_message();
+                        var form_data = $('#form_company').serialize();
+                        var request = $.ajax({
+                            url: '/api/companies',
+                            cache: false,
+                            data: form_data,
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            type: 'get'
+                        });
+                        request.done(function (output) {
+                            if (output.result == 'success') {
+                                // Reload datable
+                                table_companies.api().ajax.reload(function () {
+                                    hide_loading_message();
+                                    var company_name = $('#company_name').val();
+                                    show_message("Company '" + company_name + "' added successfully.", 'success');
+                                }, true);
+                            } else {
+                                hide_loading_message();
+                                show_message('Add request failed', 'error');
+                            }
+                        });
+                        request.fail(function (jqXHR, textStatus) {
+                            hide_loading_message();
+                            show_message('Add request failed: ' + textStatus, 'error');
+                        });
+                    }
+                });
+
+                // Edit company button
+                $(document).on('click', '.function_edit a', function (e) {
+                    e.preventDefault();
+                    // Get company information from database
+                    show_loading_message();
+                    var id = $(this).data('id');
+                    var request = $.ajax({
+                        url: '/api/companies',
+                        cache: false,
+                        data: 'id=' + id,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        type: 'get'
+                    });
+                    request.done(function (output) {
+                        if (output.result == 'success') {
+                            $('.lightbox_content h2').text('Edit company');
+                            $('#form_company button').text('Edit company');
+                            $('#form_company').attr('class', 'form edit');
+                            $('#form_company').attr('data-id', id);
+                            $('#form_company .field_container label.error').hide();
+                            $('#form_company .field_container').removeClass('valid').removeClass('error');
+                            $('#form_company #rank').val(output.data[0].rank);
+                            $('#form_company #company_name').val(output.data[0].company_name);
+                            $('#form_company #industries').val(output.data[0].industries);
+                            $('#form_company #revenue').val(output.data[0].revenue);
+                            $('#form_company #fiscal_year').val(output.data[0].fiscal_year);
+                            $('#form_company #employees').val(output.data[0].employees);
+                            $('#form_company #market_cap').val(output.data[0].market_cap);
+                            $('#form_company #headquarters').val(output.data[0].headquarters);
+                            hide_loading_message();
+                            show_lightbox();
+                        } else {
+                            hide_loading_message();
+                            show_message('Information request failed', 'error');
+                        }
+                    });
+                    request.fail(function (jqXHR, textStatus) {
+                        hide_loading_message();
+                        show_message('Information request failed: ' + textStatus, 'error');
+                    });
+                });
+
+                // Edit company submit form
+                $(document).on('submit', '#form_company.edit', function (e) {
+                    e.preventDefault();
+                    // Validate form
+                    if (form_company.valid() == true) {
+                        // Send company information to database
+                        hide_ipad_keyboard();
+                        hide_lightbox();
+                        show_loading_message();
+                        var id = $('#form_company').attr('data-id');
+                        var form_data = $('#form_company').serialize();
+                        var request = $.ajax({
+                            url: '/api/companies/' + id,
+                            cache: false,
+                            data: form_data,
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            type: 'get'
+                        });
+                        request.done(function (output) {
+                            if (output.result == 'success') {
+                                // Reload datable
+                                table_companies.api().ajax.reload(function () {
+                                    hide_loading_message();
+                                    var company_name = $('#company_name').val();
+                                    show_message("Company '" + company_name + "' edited successfully.", 'success');
+                                }, true);
+                            } else {
+                                hide_loading_message();
+                                show_message('Edit request failed', 'error');
+                            }
+                        });
+                        request.fail(function (jqXHR, textStatus) {
+                            hide_loading_message();
+                            show_message('Edit request failed: ' + textStatus, 'error');
+                        });
+                    }
+                });
+
+                // Delete company
+                $(document).on('click', '.function_delete a', function (e) {
+                    e.preventDefault();
+                    var company_name = $(this).data('name');
+                    if (confirm("Are you sure you want to delete '" + company_name + "'?")) {
+                        show_loading_message();
+                        var id = $(this).data('id');
+                        var request = $.ajax({
+                            url: '/api/companies/' + id,
+                            cache: false,
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            type: 'get'
+                        });
+                        request.done(function (output) {
+                            if (output.result == 'success') {
+                                // Reload datable
+                                table_companies.api().ajax.reload(function () {
+                                    hide_loading_message();
+                                    show_message("Company '" + company_name + "' deleted successfully.", 'success');
+                                }, true);
+                            } else {
+                                hide_loading_message();
+                                show_message('Delete request failed', 'error');
+                            }
+                        });
+                        request.fail(function (jqXHR, textStatus) {
+                            hide_loading_message();
+                            show_message('Delete request failed: ' + textStatus, 'error');
+                        });
+                    }
+                });
+
+            });
+        </script>
+
+    }
+

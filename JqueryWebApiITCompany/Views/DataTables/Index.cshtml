@@ -1,0 +1,306 @@
+﻿@{
+    Layout = "~/Views/Shared/_JqueryLayout.cshtml";
+}
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+@*<link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />*@
+@*<link rel="stylesheet" href="~/Content/layout.css">*@
+<div id="page_container">
+    <div id="page_container">
+        <h1>Largest IT Companies by Revenue</h1>
+
+        <section class="content">
+            <div class="box">
+                <div class="box-body">
+                    <button type="submit" class="btn btn-primary" id="btnadd"><i class="fa fa-plus"></i> Add Customer</button>
+                    <div class="box-body" style="max-width: 900px;">
+                        <table class="datatable table table-striped table-bordered table-hover" id="table_companies">
+                            <thead>
+                                <tr class="tableheader">
+                                    <th>Rank</th>
+                                    <th>Company Name</th>
+                                    <th>Industries</th>
+                                    <th>Revenue</th>
+                                    <th>Year</th>
+                                    <th>Employess</th>
+                                    <th>Market Cap</th>
+                                    <th>Headquarters</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="modalcomp" class="modal">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">X</button>
+                                <h4 class="modal-title">Add New Company</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="pad" id="infopanel"></div>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Rank</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtrank">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Company Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtname" placeholder="Name">
+                                            <input type="hidden" id="crudmethod" value="N">
+                                            <input type="hidden" id="txtid" value="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Industries</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtindustry">
+                                            @*<select class="form-control" id="cbogender">
+                                                <option value="Male"> Male </option>
+                                                <option value="Female"> Female </option>
+                                            </select>*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Revenue</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtrevenue">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Year</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtfiscalyear">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Employees</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtemployees">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Market Cap</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtmarketcap">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Headquarters</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtheadquarters">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <button type="submit" class="btn btn-primary " id="btnsave"><i class="fa fa-save"></i> Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<button type="button" class="button" id="add_company">Add Company</button>
+            <table class="datatable" id="table_companies">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Company Name</th>
+                        <th>Industries</th>
+                        <th>Revenue</th>
+                        <th>Year</th>
+                        <th>Employess</th>
+                        <th>Market Cap</th>
+                        <th>Headquarters</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>-->
+        </section>
+    </div>
+
+    @section scripts{
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-notify.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#table_companies').DataTable({
+                    paging: true,
+                    lengthChange: true,
+                    searching: true,
+                    ordering: true,
+                    info: false,
+                    responsive: true,
+                    autoWidth: false,
+                    pageLength: 10,
+                    ajax: {
+                        "url": "/api/companies",
+                        "dataSrc": ""
+                    },
+                    columns: [
+                        { "data": "rank" },
+                        { "data": "name" },
+                        { "data": "industry" },
+                        { "data": "revenue" },
+                        { "data": "fiscalYear" },
+                        { "data": "employees" },
+                        { "data": "marketCap" },
+                        { "data": "headquarters" },
+                        { "data": null }
+                    ]
+                });
+            });
+
+            $(document).on("click", "#btnadd", function () {
+                $("#modalcomp").modal("show");
+                $("#txtname").focus();
+                $("#txtname").val("");
+                $("#txtcountry").val("");
+                $("#txtphone").val("");
+                $("#crudmethod").val("N");
+                $("#txtid").val("0");
+            });
+
+            $(document).on("click", ".btnhapus", function () {
+                var id_cust = $(this).attr("id_cust");
+                var name = $(this).attr("name_cust");
+                swal({
+                    title: "Delete Cust?",
+                    text: "Delete Cust : " + name + " ?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: true
+                },
+                  function () {
+                      var value = {
+                          id_cust: id_cust
+                      };
+                      $.ajax(
+                      {
+                          url: "delete.php",
+                          type: "POST",
+                          data: value,
+                          success: function (data, textStatus, jqXHR) {
+                              var data = jQuery.parseJSON(data);
+                              if (data.result == 1) {
+                                  $.notify('Successfull delete customer');
+                                  var table = $('#table_cust').DataTable();
+                                  table.ajax.reload(null, false);
+                              } else {
+                                  swal("Error", "Can't delete customer data, error : " + data.error, "error");
+                              }
+
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                              swal("Error!", textStatus, "error");
+                          }
+                      });
+                  });
+            });
+
+            $(document).on("click", "#btnsave", function () {
+                var id_cust = $("#txtid").val();
+                var name = $("#txtname").val();
+                var gender = $("#cbogender").val();
+                var country = $("#txtcountry").val();
+                var phone = $("#txtphone").val();
+                var crud = $("#crudmethod").val();
+                if(name == '' || name == null){
+                    swal("Warning", "Please fill customer name", "warning");
+                    $("#txtname").focus();
+                    return;
+                }
+                var value = {
+                    id_cust: id_cust,
+                    name: name,
+                    gender: gender,
+                    country: country,
+                    phone: phone,
+                    crud: crud
+                };
+                $.ajax({
+                    url: "/api/companies",
+                    type: "POST",
+                    data: value,
+                    success: function (data, textStatus, jqXHR) {
+                        var data = jQuery.parseJSON(data);
+                        if (data.crud == 'N') {
+                            if (data.result == 1) {
+                                $.notify('Successfull update data');
+                                var table = $('#table_cust').TataTable();
+                                table.ajax.reload(null, false);
+                                $("#txtname").focus();
+                            }
+                            else {
+                                swal("Error", "Can't update customer data, error : " + data.error, "error");
+                            }
+                        }
+                        else if (data.crud == 'E') {
+                            if (data.result == 1) {
+                                $.notify('Successfull update data');
+                                var table = $('#table_cust').DataTable();
+                                table.ajax.reload(null, false);
+                                $("#txtname").focus();
+                            }
+                            else {
+                                swal("Error", "Can't update customer data, error : " + data.error, "error");
+                            }
+                        }
+                        else {
+                            swal("Error", "invalid order", "error");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        swal("Error!", textStatus, "error");
+                    }
+                });
+            });
+
+            $(document).on("click", ".btnedit", function () {
+                var id_cust = $(this).attr("id_cust");
+                var value = {
+                    id_cust: id_cust
+                };
+                $.ajax({
+                    url: "/api/companies",
+                    type: "PUT",
+                    data: value,
+                    success: function (data, textStatus, jqXHR) {
+                        var data = jQuery.parseJSON(data);
+                        $("#crudmethod").val("E");
+                        $("#txtid").val(data.id_cust);
+                        $("#txtname").val(data.name);
+                        $("#cbogender").val(data.gender);
+                        $("#txtcountry").val(data.country);
+                        $("#txtphone").val(data.phone);
+
+                        $("#modalcust").modal('show');
+                        $("#txtname").focus();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        swal("Error!", textStatus, "error");
+                    }
+                });
+            });
+            $.notifyDefault({
+                type: 'success',
+                delay: 500
+            });
+        </script>
+    }

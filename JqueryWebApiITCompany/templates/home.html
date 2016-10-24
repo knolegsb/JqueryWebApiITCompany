@@ -1,0 +1,53 @@
+﻿<html>
+<head>
+    <script src="../Scripts/angular.min.js"></script>
+
+    <!--<script src="../Scripts/ngApp/companyServices.js"></script>
+    <script src="../Scripts/ngApp/companyResources.js"></script>
+    <script src="../Scripts/ngApp/companyController.js"></script>-->
+    <script src="../Scripts/ngApp/ngApp.js"></script>
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body ng-app="companyApp">
+
+    <div ng-controller="companyController" class="container">
+        <div>
+            <table style="margin-top: 50px;" class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Company Name</th>
+                        <th>Industry</th>
+                        <th>Revenue</th>
+                        <th>Year</th>
+                        <th>Employees</th>
+                        <th>Market Cap</th>
+                        <th>Headquarters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in companies">
+                        <td>{{item.rank}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.industry}}</td>
+                        <td>{{item.revenue | currency}}</td>
+                        <td>{{item.fiscalYear | date: "yyyy"}}</td>
+                        <td>{{item.employees | number}}</td>
+                        <td>{{item.marketCap | currency}}</td>
+                        <td>{{item.headquarters}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> 
+
+    <script>
+        app.controller("companyController", function ($scope, $http) {
+            $http.get("/api/companies")
+                .then(function (result) {
+                    $scope.companies = result.data;
+                });
+        });
+    </script>
+</body>
+</html>

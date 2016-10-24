@@ -1,0 +1,306 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_JqueryLayout.cshtml";
+}
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<h1 style="color: #f00">List of students </h1>
+
+<div class="">
+    <div style="margin-left: 15px; margin-bottom: 20px;" class="col-md-4">
+        <button type="submit" class="btn btn-primary" id="btnadd"><i class="fa fa-plus"></i> Add Company</button>
+    </div>
+
+    @*<div style="margin-left: 15px" class="input-group">
+        <label col-md-3>Enter the Company ID:</label>
+        <input class="form-control col-md-6" id="companyId" type="text" />
+        <button class="btn btn-primary col-md-3" id="GetCompany" onclick="GetCompany()">Get Company</button>
+    </div>*@
+    <div class="form-group col-md-6 pull-right" >
+        <label class="col-sm-4 control-label text-right">Enter the Company ID:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="companyId">
+        </div>
+        <button class="btn btn-primary col-md-4" style="width: 130px;" id="GetCompany" onclick="GetCompany()"><i class="fa fa-search" aria-hidden="true"></i> Get Company</button>
+    </div>
+</div>
+
+
+<div id="divResult" style="margin-left: 15px"></div>
+
+
+<div id="modalcomp" class="modal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+                <h4 class="modal-title">Add New Company</h4>
+            </div>
+            <div class="modal-body">
+                <div class="pad" id="infopanel"></div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Id</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtid">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Rank</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtrank">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Company Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtname" placeholder="Name">
+                            @*<input type="hidden" id="crudmethod" value="N">
+                            <input type="hidden" id="txtid" value="0">*@
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Industries</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtindustry">
+                            @*<select class="form-control" id="cbogender">
+                                    <option value="Male"> Male </option>
+                                    <option value="Female"> Female </option>
+                                </select>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Revenue</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtrevenue">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Year</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtfiscalyear">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Employees</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtemployees">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Market Cap</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtmarketcap">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Headquarters</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="txtheadquarters">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary " id="addNewCompany" onclick="PostCompany()" data-dismiss="modal"><i class="fa fa-save"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            
+
+
+
+@section scripts{
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<script>
+
+    $(document).ready(function () {
+        jQuery.support.cors = true;
+        $.ajax({
+            url: '/api/companies',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                WriteResponse(data);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+
+        function WriteResponse(data) {
+            var html = "<table><thead><tr><th>Rank</th><th>Company Name</th><th>Industries</th><th>Revenue</th><th>Year</th><th>Employess</th><th>Market Cap</th><th>Headquarters</th><th>Functions</th></tr></thead>";
+            html += "<tbody>"
+            $.each(data, function (index, company) {
+                html += "<tr><td>" + company.rank + "</td>";
+                html += "<td>" + company.name + "</td>";
+                html += "<td>" + company.industry + "</td>";
+                html += "<td>$" + company.revenue + "</td>";
+                html += "<td>" + company.fiscalYear + "</td>";
+                html += "<td>" + company.employees + "</td>";
+                html += "<td>$" + company.marketCap + "</td>";
+                html += "<td>" + company.headquarters + "</td>";
+                //html += "<td><button id='updateCompany' onclick='PutCompany()'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button>&nbsp&nbsp&nbsp";
+                html += "<td><button id='updateCompany'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button>&nbsp&nbsp&nbsp";
+                html += "<button id='deleteCompany' onclick='DeleteCompany()'><i class='fa fa-trash-o' aria-hidden='true'></i></button></td></tr>";
+            });
+            html += "</tbody></table>";
+            $("#divResult").html(html);
+
+            $("table").addClass("table table-striped table-bordered table-hovor");
+        }
+
+        $(document).on("click", "#btnadd", function () {
+            $("#modalcomp").modal("show");
+            $("#txtname").focus();
+            $("#txtid").val("");
+            $("#txtrank").val("");
+            $("#txtname").val("");
+            $("#txtindustry").val("");
+            $("#txtrevenue").val("");
+            $("#txtfiscalyear").val("");
+            $("#txtemployees").val("");
+            $("#txtmarketcap").val("");
+            $("#txtheadquarters").val("");
+            //$("#crudmethod").val("N");            
+        });
+
+        $(document).on("click", "#updateCompany", function () {
+            $("#modalcomp").modal("show");
+        })
+    });
+
+    //Get a Particular Student based on ID
+    function GetCompany() {
+        jQuery.support.cors = true;
+        $.ajax({
+            url: '/api/jquerycompanies/' + document.getElementById('companyId').value,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                WriteResponse(data);
+            },
+            error: function (x, y, z) {
+                alert('The Student not found in the List for the given ID');
+            }
+        });
+
+        function WriteResponse(data) {
+            var html = "<table><thead><tr><th>Rank</th><th>Company Name</th><th>Industries</th><th>Revenue</th><th>Year</th><th>Employess</th><th>Market Cap</th><th>Headquarters</th><th>Functions</th></tr></thead>";
+            html += "<tbody>"
+            //$.each(data, function (index, company) {
+                html += "<tr><td>" + data.rank + "</td>";
+                html += "<td>" + data.name + "</td>";
+                html += "<td>" + data.industry + "</td>";
+                html += "<td>$" + data.revenue + "</td>";
+                html += "<td>" + data.fiscalYear + "</td>";
+                html += "<td>" + data.employees + "</td>";
+                html += "<td>$" + data.marketCap + "</td>";
+                html += "<td>" + data.headquarters + "</td>";
+                html += "<td><button id='updateCompany' onclick='PutCompany()'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button>&nbsp&nbsp&nbsp";
+                html += "<button id='deleteCompany' onclick='DeleteCompany()'><i class='fa fa-trash-o' aria-hidden='true'></i></button></td></tr>";
+            //});
+            html += "</tbody></table>";
+            $("#divResult").html(html);
+
+            $("table").addClass("table table-striped table-bordered table-hovor");
+        }
+    }
+
+    //Updates the company Details in the List
+    function PutCompany() {
+        var company = {
+            id: document.getElementById('txtid').value,
+            rank: document.getElementById('txtrank').value,
+            name: document.getElementById('txtname').value,
+            industry: document.getElementById('txtindustry').value,
+            revenue: document.getElementById('txtrevenue').value,
+            fiscalYear: document.getElementById('txtfiscalyear').value,
+            employees: document.getElementById('txtemployees').value,
+            marketCap: document.getElementById('txtmarketcap').value,
+            headquarters: document.getElementById('txtheadquarters').value
+        };
+
+        $.ajax({
+            url: '/api/jquerycompanies/' + document.getElementById('companyId').value,
+            type: 'PUT',
+            data: JSON.stringify(company),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                alert('Details Updated Successfully');
+                GetAllStudents();
+            },
+            error: function () {
+                alert('Unable to Update for the Given ID');
+            }
+        });
+    }
+
+    //Adds a Company to the List
+    function PostCompany() {
+        var company = {
+            id: document.getElementById('txtid').value,
+            rank: document.getElementById('txtrank').value,
+            name: document.getElementById('txtname').value,
+            industry: document.getElementById('txtindustry').value,
+            revenue: document.getElementById('txtrevenue').value,
+            fiscalYear: document.getElementById('txtfiscalyear').value,
+            employees: document.getElementById('txtemployees').value,
+            marketCap: document.getElementById('txtmarketcap').value,
+            headquarters: document.getElementById('txtheadquarters').value
+        };
+
+        $.ajax({
+            url: '/api/jquerycompanies/',
+            type: 'POST',
+            data: JSON.stringify(company),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $('#modalcomp').on('hidden.bs.modal', function () {
+                    alert('Company added successfully');
+                });                              
+            },
+            error: function () {
+                alert('Company not Added');
+            }
+        });
+    }
+
+    //Updates the Company Details in the List
+    //function PutStudent() {
+    //    var student = {
+    //        id: document.getElementById('txtid').value,
+    //        rank: document.getElementById('txtrank').value,
+    //        name: document.getElementById('txtname').value,
+    //        industry: document.getElementById('txtindustry').value,
+    //        revenue: document.getElementById('txtrevenue').value,
+    //        fiscalYear: document.getElementById('txtfiscalyear').value,
+    //        employees: document.getElementById('txtemployees').value,
+    //        marketCap: document.getElementById('txtmarketcap').value,
+    //        headquarters: document.getElementById('txtheadquarters').value
+    //    };
+
+    //    $.ajax({
+    //        url: '/api/jquerycompanies/' + document.getElementById('companyId').value,
+    //        type: 'PUT',
+    //        data: JSON.stringify(company),
+    //        contentType: "application/json;charset=utf-8",
+    //        success: function (data) {
+    //            alert('Details Updated Successfully');
+    //            GetAllStudents();
+    //        },
+    //        error: function () {
+    //            alert('Unable to Update for the Given ID');
+    //        }
+    //    });
+    //}
+
+
+</script>
+}
