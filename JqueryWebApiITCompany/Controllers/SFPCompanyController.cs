@@ -16,7 +16,7 @@ namespace JqueryWebApiITCompany.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: SFPCompany
-        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page, int? pagesize)
         {
             ViewBag.CurrentSort = sortOrder;
 
@@ -93,8 +93,9 @@ namespace JqueryWebApiITCompany.Controllers
                     companies = companies.OrderBy(c => c.Rank);
                     break;
             }
-
-            int pageSize = 5;
+            //ViewBag.Pagesize = pagesize;
+            if (pagesize == null) pagesize = 10;
+            int pageSize = pagesize.Value;
             int pageNumber = (page ?? 1);
             return View(companies.ToPagedList(pageNumber, pageSize));
         }

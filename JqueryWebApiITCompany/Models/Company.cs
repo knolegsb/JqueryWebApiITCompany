@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace JqueryWebApiITCompany.Models
 {
@@ -44,5 +45,19 @@ namespace JqueryWebApiITCompany.Models
 
         [Required]
         public string Headquarters { get; set; }
+
+        //public List<SelectListItem> PageNumberList
+        //{
+        //    get
+        //    {
+        //        return new List<SelectListItem>
+        //        {
+        //            new SelectListItem { Text = "10", Value= "10" },
+        //            new SelectListItem { Text = "20", Value= "20" },
+        //            new SelectListItem { Text = "50", Value= "50" },
+        //            new SelectListItem { Text = "100", Value= "100" }
+        //        };
+        //    }
+        //}
     }
 }

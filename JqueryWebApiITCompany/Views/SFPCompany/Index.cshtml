@@ -17,39 +17,44 @@
     {
         <div class="input-group">
             <span class="input-group-addon">Find by name</span>
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })            
-            <input class="btn btn-default input-group-btn" style="width:100px !important;" type="submit" value="Search" />            
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            <input class="btn btn-default input-group-btn" style="width:100px !important;" type="submit" value="Search" />
         </div>
     }
 </div>
+
 <br />
 <style>
-    th{
-        text-align:center;
+    th {
+        text-align: center;
+    }
+    
+    footer{
+        clear:both;
     }
 </style>
 
 <table class="table table-bordered table-striped table-hover">
     <tr>
-        <th width="50">            
+        <th width="50">
             @Html.ActionLink("Rank", "Index", new { sortOrder = ViewBag.RankSortParam })
         </th>
-        <th width="100">          
+        <th width="100">
             @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam })
         </th>
         <th width="270">
             Industry
         </th>
-        <th width="100">           
-            @Html.ActionLink("Revenue", "Index", new { sortOrder = ViewBag.RevenueSortParam})
+        <th width="100">
+            @Html.ActionLink("Revenue", "Index", new { sortOrder = ViewBag.RevenueSortParam })
         </th>
-        <th width="100">            
+        <th width="100">
             @Html.ActionLink("Fiscal Year", "Index", new { sortOrder = ViewBag.DateSortParam })
         </th>
-        <th width="100">           
+        <th width="100">
             @Html.ActionLink("Employees", "Index", new { sortOrder = ViewBag.EmployeeSortParam })
         </th>
-        <th width="100">            
+        <th width="100">
             @Html.ActionLink("Market Cap", "Index", new { sortOrder = ViewBag.MarketCapSortParam })
         </th>
         <th width="150">
@@ -58,44 +63,75 @@
         <th>Actions</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rank)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Industry)
-        </td>
-        <td>
-            $@Html.DisplayFor(modelItem => item.Revenue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FiscalYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employees)
-        </td>
-        <td>
-            $@Html.DisplayFor(modelItem => item.MarketCap)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Headquarters)
-        </td>
-        <td style="text-align:center;">
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-success", @style="padding:3px;" }) 
-            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" }) 
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Industry)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Revenue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FiscalYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.MarketCap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Headquarters)
+            </td>
+            <td style="text-align:center;">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" })
+            </td>
+        </tr>
+    }
 
 </table>
 
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) or @Model.PageCount
+<div>
+    <div class="col-md-6">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) or @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", 
+        @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+
+
+    <div class="col-md-6 text-right">
+        <p>Number of Entries</p> 
+        @using (Html.BeginForm("Index", "SFPCompany", FormMethod.Get, new { @class = "pull-right", style="margin-top: 12px;" }))
+        {
+            @*@Html.DropDownList("PageSize", new List<SelectListItem> {
+                    new SelectListItem() { Text = "10", Value="10" },
+                    new SelectListItem() { Text = "20", Value="20" },
+                    new SelectListItem() { Text = "50", Value="50" },
+                    new SelectListItem() { Text = "100", Value="100" },
+                })*@
+            @Html.DropDownList("PageSize",
+            new SelectList(new Dictionary<string, int> { { "10", 10 },
+                { "20", 20 }, { "50", 50 }, { "100", 100 }}, "Key", "Value"), new { @class = "form-control", id = "pagesizelist", style = "width:80px;" })
+        }
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $("#pagesizelist").on('change', function (event) {
+            var form = $(event.target).parents('form');
+
+            form.submit();
+        });
+    </script>    
+}
