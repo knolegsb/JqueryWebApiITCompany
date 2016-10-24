@@ -25,7 +25,16 @@
     }
 </div>
 <br />
-
+@*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />*@
+@*<style>
+    th{
+        text-align: center;
+    }
+    th a:after{
+        /*font-family: FontAwesome;*/
+        content: "\e094";
+    }
+</style>*@
 <table class="table table-bordered table-striped table-hover">
     <tr>
         <th width="50">
@@ -34,7 +43,7 @@
         </th>
         <th width="100">
             @*@Html.DisplayNameFor(model => model.Name)*@
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam })
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam }, new { @class = "glyphicon glyphicon-sort" })
         </th>
         <th width="270">
             Industry
