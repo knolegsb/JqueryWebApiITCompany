@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_JqueryLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Largest IT Companies by Revenue</h2>
 <link href="~/Content/index.css" rel="stylesheet" />
 <p>
     @Html.ActionLink("Create New", "Create", "Company", null, new { @class = "btn btn-primary" })
@@ -66,7 +67,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Headquarters)
         </td>
-        <td>
+        <td style="text-align:center; font-size:larger;">
             <a href="@Url.Action("Edit", "Company", new { id = item.Id })" class="glyphicon glyphicon-edit"></a>
             <a href="@Url.Action("Details", "Company", new { id = item.Id })" class="glyphicon glyphicon-file"></a>
             <a href="@Url.Action("Delete", "Company", new { id = item.Id })" class="glyphicon glyphicon-trash"></a>
@@ -85,17 +86,17 @@
             var table = $("#dataTable").DataTable({
                 dom: '<E><"row"<"col-sm-6"l><"col-sm-6 text-right"f>><"table-responsive"rt><"row"<"col-sm-6"i><"col-sm-6 text-right"p>>',
                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                oLanguage: {
-                    //"oPaginate": {
-                    //    "sFirst":       " ",
-                    //    "sPrevious":    " ",
-                    //    "sNext":        " ",
-                    //    "sLast":        " ",
-                    //},
-                    "sLengthMenu":    "Records per page: _MENU_",
-                    "sInfo":          "Total of _TOTAL_ records (showing _START_ to _END_)",
-                    "sInfoFiltered":  "(filtered from _MAX_ total records)"
-                }
+                //oLanguage: {
+                //    "oPaginate": {
+                //        "sFirst":       "First ",
+                //        "sPrevious":    " ",
+                //        "sNext":        " ",
+                //        "sLast":        " ",
+                //    },
+                //    "sLengthMenu":    "Records per page: _MENU_",
+                //    "sInfo":          "Total of _TOTAL_ records (showing _START_ to _END_)",
+                //    "sInfoFiltered":  "(filtered from _MAX_ total records)"
+                //}                
             }); 
         });
     </script> 
