@@ -1,0 +1,104 @@
+﻿@model PagedList.IPagedList<JqueryWebApiITCompany.Models.Company>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+
+    @using (Html.BeginForm("Index", "SFPCompany", FormMethod.Get, new { @class = "col-md-6"}))
+    {
+        <div class="input-group text-right">
+            <span class="input-group-addon">Find by name</span>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+            @*<span class="input-group-btn">*@
+            <input class="btn btn-default input-group-btn" style="width:100px !important;" type="submit" value="Search" />
+            @*<button class="btn btn-secondary" type="submit">Go!</button>*@
+            @*</span>*@
+        </div>
+    }
+</div>
+<br />
+
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th width="50">
+            @*@Html.DisplayNameFor(model => model.Rank)*@
+            @Html.ActionLink("Rank", "Index", new { sortOrder = ViewBag.RankSortParam })
+        </th>
+        <th width="100">
+            @*@Html.DisplayNameFor(model => model.Name)*@
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam })
+        </th>
+        <th width="270">
+            Industry
+        </th>
+        <th width="100">
+            @*@Html.DisplayNameFor(model => model.Revenue)*@
+            @Html.ActionLink("Revenue", "Index", new { sortOrder = ViewBag.RevenueSortParam})
+        </th>
+        <th width="100">
+            @*@Html.DisplayNameFor(model => model.FiscalYear)*@
+            @Html.ActionLink("Fiscal Year", "Index", new { sortOrder = ViewBag.DateSortParam })
+        </th>
+        <th width="100">
+            @*@Html.DisplayNameFor(model => model.Employees)*@
+            @Html.ActionLink("Employees", "Index", new { sortOrder = ViewBag.EmployeeSortParam })
+        </th>
+        <th width="100">
+            @*@Html.DisplayNameFor(model => model.MarketCap)*@
+            @Html.ActionLink("Market Cap", "Index", new { sortOrder = ViewBag.MarketCapSortParam })
+        </th>
+        <th width="150">
+            Headquarters
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rank)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Industry)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.Revenue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FiscalYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.MarketCap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Headquarters)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-success", @style="padding:3px;" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-success", @style = "padding:3px;" })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) or @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", 
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
