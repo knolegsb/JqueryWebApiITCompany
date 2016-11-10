@@ -504,7 +504,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\contactApp\contactApp.js" />
+    <Content Include="Scripts\companyApp\companyApp.js" />
     <Content Include="Scripts\dirPagination.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />

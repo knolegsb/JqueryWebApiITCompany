@@ -15,12 +15,12 @@
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/jquery-2.2.1.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/contactApp/contactApp.js"></script>
+    <script src="~/Scripts/companyApp/companyApp.js"></script>
     <script src="~/Scripts/dirPagination.js"></script>
 </head>
 <body>
     <div class="container" style="padding-top: 20px;">
-        <div ng-app="contactApp" ng-controller="contactController" class="container">
+        <div ng-app="companyApp" ng-controller="companyController" class="container">
             <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
                 <button type="button" class="close" data-dismiss="alert">
                     <span aria-hidden="true">&times;<span class="sr-only">Close</span></span>
@@ -28,73 +28,83 @@
                 {{error}}
             </div>
 
-            <p><a ng-click="showadd()" href="javascript:;" class="btn btn-primary">Add New Contact</a></p>
+            <h1>Top IT Companies by Revenue</h1>
 
-            <div class="modal fade" id="contactModel" tabindex="-1" role="dialog" aria-hidden="true">
+            <p><a ng-click="showadd()" href="javascript:;" class="btn btn-primary">Add New Company</a></p>
+            <br />
+            <br />
+
+            <div class="modal fade" id="companyModel" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                            <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add Contact</h4>
-                            <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Contact</h4>
+                            <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add Company</h4>
+                            <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Company</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" role="form" name="addcontactform">
+                            <form class="form-horizontal" role="form" name="addcompanyform">
+                                @*<div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Id</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="company.id" class="form-control" id="title" placeholder="Enter Rank" required title="Enter Rank" />
+                                    </div>
+                                </div>*@
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Rank</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.rank" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                        <input type="text" ng-model="company.rank" class="form-control" id="title" placeholder="Enter Rank" required title="Enter Rank" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.name" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                        <input type="text" ng-model="company.name" class="form-control" id="title" placeholder="Enter Name" required title="Enter Name" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Industries</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.industry" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                        <input type="text" ng-model="company.industry" class="form-control" id="title" placeholder="Enter Industry" required title="Enter Industry" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Revenue</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.revenue" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                        <input type="text" ng-model="company.revenue" class="form-control" id="title" placeholder="Enter Revenue" required title="Enter Revenue" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Year</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.fiscalYear" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                        <input type="text" ng-model="company.fiscalYear" class="form-control" id="title" placeholder="Enter Year" required title="Enter Year" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Employees</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.emplyees" class="form-control" id="title" placeholder="Your Address" required title="Enter your address" />
+                                        <input type="text" ng-model="company.employees" class="form-control" id="title" placeholder="Enter Employees" required title="Enter Employees" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Market cap</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.marketCap" class="form-control" id="title" placeholder="Your Phone Number" required title="Enter your phone number" />
+                                        <input type="text" ng-model="company.marketCap" class="form-control" id="title" placeholder="Enter Market Cap" required title="Enter Market Cap" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Headquarters</label>
                                     <div class="col-sm-10">
-                                        <input type="text" ng-model="contact.headquarters" class="form-control" id="title" placeholder="Your Phone Number" required title="Enter your phone number" />
+                                        <input type="text" ng-model="company.headquarters" class="form-control" id="title" placeholder="Enter Headquarters" required title="Enter Headquarters" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <span ng-hide="editMode">
-                                            <input type="submit" value="Add" ng-disabled="addcontactform.$invalid" ng-click="add()" class="btn btn-primary" />
+                                            <input type="submit" value="Add" ng-disabled="addcompanyform.$invalid" ng-click="add()" class="btn btn-primary" />
                                         </span>
                                         <span ng-show="editMode">
-                                            <input type="submit" value="Update" ng-disabled="addcontactform.$invalid" ng-click="update()" class="btn btn-primary" />
+                                            <input type="submit" value="Update" ng-disabled="addcompanyform.$invalid" ng-click="update()" class="btn btn-primary" />
                                         </span>
                                         <input type="button" value="Cancel" ng-click="cancel()" class="btn btn-primary" />
                                     </div>
@@ -105,16 +115,7 @@
                 </div>
             </div>
 
-            <h1>Contacts List</h1>
-
-            @*<form class="form-inline">
-                <div class="form-group" style="margin-left:15px;">
-                    <b>Search : </b>
-                    <input type="text" placeholder="Search" class="form-control" ng-model="search" />
-                </div>
-            </form>*@
-            
-            <div class="row">                
+            <div class="row">
                 <div class="col-md-6">
                     <div class="input-group col-md-6">
                         <span class="input-group-addon">Search</span>
@@ -127,8 +128,8 @@
                         <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" />
                     </div>
                 </div>
-            </div>            
-            
+            </div>
+
             <br />
             <table class="table table-bordered table-striped table-hover">
                 <tr>
@@ -143,26 +144,26 @@
                     <th>Headquarters</th>
                     <th width="105">Operations</th>
                 </tr>
-                <tr dir-paginate = "contact in contacts | filter:search | itemsPerPage: pageSize" current-page="currentPage">
-                    <td><strong>{{contact.id}}</strong></td>
-                    <td><p>{{contact.rank}}</p></td>
-                    <td><p>{{contact.name}}</p></td>
-                    <td><p>{{contact.industry}}</p></td>
-                    <td><p>{{contact.revenue | currency}}</p></td>
-                    <td><p>{{contact.fiscalYear | date: "yyyy"}}</p></td>
-                    <td><p>{{contact.employees | number}}</p></td>
-                    <td><p>{{contact.marketCap | currency}}</p></td>
-                    <td><p>{{contact.headquarters}}</p></td>
+                <tr dir-paginate="company in companies | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                    <td><strong>{{company.id}}</strong></td>
+                    <td><p>{{company.rank}}</p></td>
+                    <td><p>{{company.name}}</p></td>
+                    <td><p>{{company.industry}}</p></td>
+                    <td><p>{{company.revenue | currency}}</p></td>
+                    <td><p>{{company.fiscalYear | date: "yyyy"}}</p></td>
+                    <td><p>{{company.employees | number}}</p></td>
+                    <td><p>{{company.marketCap | currency}}</p></td>
+                    <td><p>{{company.headquarters}}</p></td>
                     <td>
                         <p>
-                            <a class="view" ng-click="get(contact)" href="javascript:;"><i class="fa fa-file-o" title="View"></i></a> 
-                            <a class="edit" ng-click="edit(contact)" href="javascript:;"><i class="fa fa-pencil" title="Edit"></i></a> 
-                            <a class="delete" ng-click="showconfirm(contact)" href="javascript:;"><i class="fa fa-trash-o" title="Delete"></i></a>
+                            <a class="view" ng-click="get(company)" href="javascript:;"><i class="fa fa-file-o" title="View"></i></a>
+                            <a class="edit" ng-click="edit(company)" href="javascript:;"><i class="fa fa-pencil" title="Edit"></i></a>
+                            <a class="delete" ng-click="showconfirm(company)" href="javascript:;"><i class="fa fa-trash-o" title="Delete"></i></a>
                         </p>
                     </td>
                 </tr>
             </table>
-            <div class="row">                
+            <div class="row">
                 <div class="col-md-6">
                     <dir-pagination-controls max-size="10"
                                              direction-links="true"
@@ -171,7 +172,7 @@
                 </div>
                 <div class="col-md-6  text-right">
                     <b style="color: #5bc0de;margin-left:20px;">Current Page</b>: <b>{{currentPage}}</b>
-                    <b style="color: #5bc0de;margin-left:20px;">Total Records </b>: <b>{{contacts.length}}</b>
+                    <b style="color: #5bc0de;margin-left:20px;">Total Records </b>: <b>{{companies.length}}</b>
                 </div>
             </div>
             <hr />
@@ -181,7 +182,7 @@
                     font-size: x-large;
                     margin-right: 3px;
                     margin-left: 3px;
-                }                
+                }
             </style>
 
             <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -189,28 +190,58 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                            <h4 class="modal-title" id="myModalLabel">View Contact</h4>
+                            <h4 class="modal-title" id="myModalLabel">View Company</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" role="form" name="viewcontact">
+                            <form class="form-horizontal" role="form" name="viewcompany">
                                 <div class="form-group">
-                                    <label for="Name" class="col-sm-2 control-label">Name</label>
-                                    <div class="col-sm-10">
-                                        {{contact.name}}
+                                    <label for="Rank" class="col-sm-4 control-label">Rank</label>
+                                    <div class="col-sm-8">
+                                        {{company.rank}}
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Address" class="col-sm-2 control-label">Address</label>
-                                    <div class="col-sm-10">
-                                        {{contact.address}}
+                                    <label for="Name" class="col-sm-4 control-label">Name</label>
+                                    <div class="col-sm-8">
+                                        {{company.name}}
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Phone" class="col-sm-2 control-label">Phone</label>
-                                    <div class="col-sm-10">
-                                        {{contact.phone}}
+                                    <label for="Industries" class="col-sm-4 control-label">Industries</label>
+                                    <div class="col-sm-8">
+                                        {{company.industry}}
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="Revenue" class="col-sm-4 control-label">Revenue</label>
+                                    <div class="col-sm-8">
+                                        {{company.revenue}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Fiscal Year" class="col-sm-4 control-label">Fiscal Year</label>
+                                    <div class="col-sm-8">
+                                        {{company.fiscalYear}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Employees" class="col-sm-4 control-label">Employees</label>
+                                    <div class="col-sm-8">
+                                        {{company.employees}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Market Cap" class="col-sm-4 control-label">Market Cap</label>
+                                    <div class="col-sm-8">
+                                        {{company.marketCap}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Headquarters" class="col-sm-4 control-label">Headquarters</label>
+                                    <div class="col-sm-8">
+                                        {{company.headquarters}}
+                                    </div>
+                                </div>                                
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -239,5 +270,13 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div align="center">
+            &copy;All rights reserved Goodsean Company @@ @DateTime.Now.Year
+        </div>
+    </footer>
+    <br />
+    <br />
 </body>
+
 </html>
