@@ -1,0 +1,243 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AngularJS &amp; Bootstrap CRUD Operations</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/jquery-2.2.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/contactApp/contactApp.js"></script>
+    <script src="~/Scripts/dirPagination.js"></script>
+</head>
+<body>
+    <div class="container" style="padding-top: 20px;">
+        <div ng-app="contactApp" ng-controller="contactController" class="container">
+            <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;<span class="sr-only">Close</span></span>
+                </button>
+                {{error}}
+            </div>
+
+            <p><a ng-click="showadd()" href="javascript:;" class="btn btn-primary">Add New Contact</a></p>
+
+            <div class="modal fade" id="contactModel" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                            <h4 class="modal-title" id="myModalLabel" ng-hide="editMode">Add Contact</h4>
+                            <h4 class="modal-title" id="myModalLabel" ng-show="editMode">Edit Contact</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form" name="addcontactform">
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Rank</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.rank" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.name" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Industries</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.industry" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Revenue</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.revenue" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Year</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.fiscalYear" class="form-control" id="title" placeholder="Your Name" required title="Enter your name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Employees</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.emplyees" class="form-control" id="title" placeholder="Your Address" required title="Enter your address" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Market cap</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.marketCap" class="form-control" id="title" placeholder="Your Phone Number" required title="Enter your phone number" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Headquarters</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="contact.headquarters" class="form-control" id="title" placeholder="Your Phone Number" required title="Enter your phone number" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <span ng-hide="editMode">
+                                            <input type="submit" value="Add" ng-disabled="addcontactform.$invalid" ng-click="add()" class="btn btn-primary" />
+                                        </span>
+                                        <span ng-show="editMode">
+                                            <input type="submit" value="Update" ng-disabled="addcontactform.$invalid" ng-click="update()" class="btn btn-primary" />
+                                        </span>
+                                        <input type="button" value="Cancel" ng-click="cancel()" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1>Contacts List</h1>
+
+            @*<form class="form-inline">
+                <div class="form-group" style="margin-left:15px;">
+                    <b>Search : </b>
+                    <input type="text" placeholder="Search" class="form-control" ng-model="search" />
+                </div>
+            </form>*@
+            
+            <div class="row">                
+                <div class="col-md-6">
+                    <div class="input-group col-md-6">
+                        <span class="input-group-addon">Search</span>
+                        <input type="text" class="form-control" placeholder="Search" ng-model="search" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group col-md-6 pull-right">
+                        <span class="input-group-addon">Items Per Page</span>
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" />
+                    </div>
+                </div>
+            </div>            
+            
+            <br />
+            <table class="table table-bordered table-striped table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>Rank</th>
+                    <th>Company Name</th>
+                    <th>Industries</th>
+                    <th>Revenue</th>
+                    <th>Fiscal Year</th>
+                    <th>Employees</th>
+                    <th>Market Cap</th>
+                    <th>Headquarters</th>
+                    <th width="105">Operations</th>
+                </tr>
+                <tr dir-paginate = "contact in contacts | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                    <td><strong>{{contact.id}}</strong></td>
+                    <td><p>{{contact.rank}}</p></td>
+                    <td><p>{{contact.name}}</p></td>
+                    <td><p>{{contact.industry}}</p></td>
+                    <td><p>{{contact.revenue | currency}}</p></td>
+                    <td><p>{{contact.fiscalYear | date: "yyyy"}}</p></td>
+                    <td><p>{{contact.employees | number}}</p></td>
+                    <td><p>{{contact.marketCap | currency}}</p></td>
+                    <td><p>{{contact.headquarters}}</p></td>
+                    <td>
+                        <p>
+                            <a class="view" ng-click="get(contact)" href="javascript:;"><i class="fa fa-file-o" title="View"></i></a> 
+                            <a class="edit" ng-click="edit(contact)" href="javascript:;"><i class="fa fa-pencil" title="Edit"></i></a> 
+                            <a class="delete" ng-click="showconfirm(contact)" href="javascript:;"><i class="fa fa-trash-o" title="Delete"></i></a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <div class="row">                
+                <div class="col-md-6">
+                    <dir-pagination-controls max-size="10"
+                                             direction-links="true"
+                                             boundary-links="true">
+                    </dir-pagination-controls>
+                </div>
+                <div class="col-md-6  text-right">
+                    <b style="color: #5bc0de;margin-left:20px;">Current Page</b>: <b>{{currentPage}}</b>
+                    <b style="color: #5bc0de;margin-left:20px;">Total Records </b>: <b>{{contacts.length}}</b>
+                </div>
+            </div>
+            <hr />
+
+            <style>
+                .fa {
+                    font-size: x-large;
+                    margin-right: 3px;
+                    margin-left: 3px;
+                }                
+            </style>
+
+            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                            <h4 class="modal-title" id="myModalLabel">View Contact</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form" name="viewcontact">
+                                <div class="form-group">
+                                    <label for="Name" class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        {{contact.name}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Address" class="col-sm-2 control-label">Address</label>
+                                    <div class="col-sm-10">
+                                        {{contact.address}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Phone" class="col-sm-2 control-label">Phone</label>
+                                    <div class="col-sm-10">
+                                        {{contact.phone}}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirm Action</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure to delete?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" ng-click="delete()">Ok</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

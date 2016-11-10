@@ -193,8 +193,8 @@
                       };
                       $.ajax(
                       {
-                          url: "delete.php",
-                          type: "POST",
+                          url: "/api/companies",
+                          type: "DELETE",
                           data: value,
                           success: function (data, textStatus, jqXHR) {
                               var data = jQuery.parseJSON(data);
