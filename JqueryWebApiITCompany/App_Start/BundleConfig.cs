@@ -14,7 +14,8 @@ namespace JqueryWebApiITCompany
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/jquery.validate.min.js",
                         "~/Scripts/DataTables/dataTables.bootstrap.js",
-                        "~/Scripts/respond.js"));
+                        "~/Scripts/respond.js",
+                        "~/Scripts/jquery.validate.unobtrusive.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/libJquery").Include(
                         "~/Scripts/jquery-{version}.js",

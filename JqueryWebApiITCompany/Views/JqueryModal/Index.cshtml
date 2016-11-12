@@ -1,0 +1,179 @@
+﻿@model JqueryWebApiITCompany.PageList.PagedList<JqueryWebApiITCompany.Models.Company>
+
+@{
+    ViewBag.Title = "IT Company List";
+}
+<style>
+    .action{
+        width: 70px;
+    }
+    tfoot > tr > td a:link{
+        color: #fff;
+        background-color: #428bca;
+        padding: 5px 10px;
+        border-radius: 7px;
+    }
+</style>
+
+<h2>Company List</h2>
+<div class="well">
+    @using (Html.BeginForm("Index", null, FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text"
+                           name="filter"
+                           value="@ViewBag.filter"
+                           class="form-control"
+                           style="display: inline"
+                           placeholder="Enter your enter string" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Go</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon">Number of Entries</span>
+                    <div>
+                        @using (Html.BeginForm("Index", "JqueryModal", FormMethod.Get, new { @class = "pull-right", style = "margin-top: 12px;" }))
+                        {
+                              @Html.DropDownList("PageSize",
+            new SelectList(new Dictionary<string, int> { {"3", 3 }, {"5", 5 }, { "10", 10 },
+                { "20", 20 }, { "50", 50 }, { "100", 100 }}, "Key", "Value"), new { @class = "form-control", id = "pagesizelist", style = "width:80px;" })
+                        }
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="pull-right col-lg-1">
+                <a class="btn btn-success" data-modal="" href="/JqueryModal/Create" id="btnCreate" title="Add">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top: 17px;">
+            @{
+                var grid = new WebGrid(
+                    canPage: true,
+                    rowsPerPage: Model.PageSize,
+                    canSort: true,
+                    ajaxUpdateContainerId: "grid"
+                    );
+
+                grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+                grid.Pager(WebGridPagerModes.All);
+
+                @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
+                    fillEmptyRows: false,
+                    tableStyle: "table table-bordered table-hover table-striped",
+                    mode: WebGridPagerModes.All,
+                    columns:
+                        grid.Columns(
+                            grid.Column("Id", "Id"),
+                            grid.Column("Rank", "Rank"),
+                            grid.Column("Name", "Company Name"),
+                            grid.Column("Industry", "Industries"),
+                            grid.Column("Revenue", "Revenue", format: @<text>@String.Format("{0:C}", item.Revenue)</text>),
+                            grid.Column("FiscalYear", "Year", format: @<text>@String.Format("{0:d/M/yyyy}", item.FiscalYear)</text>),
+                            grid.Column("Employees", "Employees", format: @<text>@String.Format("{0:N0}", item.Employees)</text>),
+                            grid.Column("MarketCap", "Market Cap", format: @<text>@String.Format("{0:C}", item.Revenue)</text>),
+                            grid.Column("Headquarters", "Headquarters"),
+                            grid.Column(header: "Actions", canSort: false, style: "action",
+                                format: @<text>
+                                           @Html.Raw("<a data-modal='' href='/jquerymodal/details/" + item.Id + "' id='"+ item.Id + "' title='Detail'> <span class='glyphicon glyphicon-file'><span></a>")
+                                           @Html.Raw("<a data-modal='' href='/jquerymodal/edit/" + item.Id + "' id='" + item.Id +  "' title='Edit'> <span class='glyphicon glyphicon-pencil'> </span></a>")
+                                           @Html.Raw("<a data-modal='' href='/jquerymodal/delete/" + item.Id + "' id='" + item.Id + "' title='Delete'> <span class='glyphicon glyphicon-trash'><span </a>")
+                                           </text>)
+                ));
+            }
+    </div>
+    }
+</div>
+
+<div class="col-md-6 text-right">
+    <p>Number of Entries</p>
+    @using (Html.BeginForm("Index", "JqueryModal", FormMethod.Get, new { @class = "pull-right", style = "margin-top: 12px;" }))
+    {
+        @*@Html.DropDownList("PageSize", new List<SelectListItem> {
+                new SelectListItem() { Text = "10", Value="10" },
+                new SelectListItem() { Text = "20", Value="20" },
+                new SelectListItem() { Text = "50", Value="50" },
+                new SelectListItem() { Text = "100", Value="100" },
+            })*@
+        @Html.DropDownList("PageSize",
+            new SelectList(new Dictionary<string, int> { {"3", 3 }, {"5", 5 }, { "10", 10 },
+                { "20", 20 }, { "50", 50 }, { "100", 100 }}, "Key", "Value"), new { @class = "form-control", id = "pagesizelist", style = "width:80px;" })
+    }
+</div>
+
+@*@section scripts{
+    <script type="text/javascript">
+        $("#pagesizelist").on('change', function (event) {
+            var form = $(event.target).parents('form');
+
+            form.submit();
+        });
+    </script>
+}*@
+
+<!-- modal placeholder -->
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+        $("#pagesizelist").on('change', function (event) {
+            var form = $(event.target).parents('form');
+
+            form.submit();
+        });
+</script>
+    <script>
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $("a[data-modal]").on("click", function (e) {
+                $("#myModalContent").load(this.href, function () {
+                    $("#myModal").modal({
+                        keyboard: true
+                    }, 'show');
+                    bindForm(this);
+                });
+                return false;
+            });
+        });
+
+        function bindForm(dialog) {
+            $("form", dialog).submit(function () {
+                $("#progress").show();
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.success) {
+                            $("#myModal").modal("hide");
+                            $("#progress").hide();
+                            location.reload();
+                        }
+                        else {
+                            $("#progress").hide();
+                            $("#myModalContent").html(result);
+                            bindForm();
+                        }
+                    }
+                });
+                return false;
+            });
+        }
+    </script>    
+}

@@ -1,0 +1,76 @@
+﻿@model JqueryWebApiITCompany.Models.Company
+
+@{ 
+    Layout = null;
+}
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Company</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rank)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rank)
+            @Html.ValidationMessageFor(model => model.Rank)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Industry)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Industry)
+            @Html.ValidationMessageFor(model => model.Industry)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Revenue)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Revenue)
+            @Html.ValidationMessageFor(model => model.Revenue)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FiscalYear)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FiscalYear)
+            @Html.ValidationMessageFor(model => model.FiscalYear)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Employees)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Employees)
+            @Html.ValidationMessageFor(model => model.Employees)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MarketCap)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MarketCap)
+            @Html.ValidationMessageFor(model => model.MarketCap)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Headquarters)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Headquarters)
+            @Html.ValidationMessageFor(model => model.Headquarters)
+        </div>
+        <p>
+            <input type="submit" id="btnsubmit" value="Create" />&nbsp;&nbsp;
+            <input type="button" value="cancel" id="btncancel" />
+        </p>
+    </fieldset>
+}

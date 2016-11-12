@@ -1,0 +1,170 @@
+﻿@model IEnumerable<JqueryWebApiITCompany.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Industry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Revenue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FiscalYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketCap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Headquarters)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rank)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Industry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Revenue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FiscalYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketCap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Headquarters)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+@* dialog box to display create/edit dialog *@
+<div id="create-dialog" style="display:none;"></div>
+
+@* dialog box to display alert after updation of values dialog *@
+<div id="alert-dialog" style="display:none;">
+    @TempData["msg"]
+</div>
+@* details dialog *@
+<div id="details-dialog" style="display:none;"></div>
+
+@* delete dialog box *@
+<div id="delete-dialog" style="display:none;">
+    Do you want to delete user...
+</div>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class ="btn btn-primary linkCreate" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Industry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Revenue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FiscalYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarketCap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Headquarters)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Industry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Revenue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FiscalYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarketCap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Headquarters)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary linkEdit" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary linkDetail" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary linkDelete" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts{    
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/jqueryUiApp.js"></script>
+}
