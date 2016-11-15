@@ -14,7 +14,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.Rank, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.Rank, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.Rank, new { @class = "form-control required", @placeholder="Enter Rank" })
                     <div>
                         @Html.ValidationMessageFor(m => m.Rank)
                     </div>
@@ -23,7 +23,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.Name, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", @placeholder = "Enter Name" })
                     <div>
                         @Html.ValidationMessageFor(m => m.Name)
                     </div>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.Industry, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.Industry, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.Industry, new { @class = "form-control required", @placeholder = "Enter Industries" })
                     <div>
                         @Html.ValidationMessageFor(m => m.Industry)
                     </div>
@@ -41,7 +41,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.Revenue, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.Revenue, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.Revenue, new { @class = "form-control required", @placeholder = "Enter Revenue" })
                     <div>
                         @Html.ValidationMessageFor(m => m.Revenue)
                     </div>
@@ -50,7 +50,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.FiscalYear, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.FiscalYear, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.FiscalYear, new { @class = "form-control required", @placeholder = "Enter Fiscal Year" })
                     <div>
                         @Html.ValidationMessageFor(m => m.FiscalYear)
                     </div>
@@ -59,7 +59,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.Employees, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.Employees, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.Employees, new { @class = "form-control required", @placeholder = "Enter Employees Number" })
                     <div>
                         @Html.ValidationMessageFor(m => m.Employees)
                     </div>
@@ -68,7 +68,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.MarketCap, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.MarketCap, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.MarketCap, new { @class = "form-control required", @placeholder = "Enter Market Cap" })
                     <div>
                         @Html.ValidationMessageFor(m => m.MarketCap)
                     </div>
@@ -77,7 +77,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => Model.Headquarters, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.TextBoxFor(m => m.Headquarters, new { @class = "form-control required" })
+                    @Html.TextBoxFor(m => m.Headquarters, new { @class = "form-control required", @placeholder = "Enter Headquarters" })
                     <div>
                         @Html.ValidationMessageFor(m => m.Headquarters)
                     </div>

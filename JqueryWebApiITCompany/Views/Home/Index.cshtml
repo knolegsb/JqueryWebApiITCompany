@@ -14,19 +14,25 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/Content/layout.css">
     <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script charset="utf-8" src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.js"></script>
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
-    <script src="~/Scripts/ajaxApp.js"></script>
+    @*<script src="~/Scripts/ajaxApp.js"></script>*@
+    @*<style>
+        .hiddenId{
+            visibility: hidden;
+        }
+    </style>*@
 </head>
 <body>
 
     <div id="page_container">
         <h1>Largest IT Companies by Revenue</h1>
-
+        
         <button type="button" class="button" id="add_company">Add Company</button>
         <table class="datatable" id="tableCompanies">
             <thead>
                 <tr>
+                    <th class=".hiddenId">Id</th>
                     <th>Rank</th>
                     <th>Company Name</th>
                     <th>Industries</th>
@@ -190,21 +196,25 @@
         </div>
     </div>
 </body>
+</html>
 
 
-
-@*@section scripts{*@
+@*@section Scripts{*@
 @*<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>*@
-@*<script>
-    $(document).ready(function () {
-        $("#tableCompanies").DataTable({
+<script type="text/javascript">
+    $(function () {
+        var table = $("#tableCompanies").DataTable({
             ajax: {
                 url: "/api/companies",
                 dataSrc: ""
+                //success: function (data) {
+                //    console.log(data);
+                //}
             },
             columns: [
+                { "data": "id", "sClass": "hiddenId"},
                 { "data": "rank" },
                 { "data": "name", "sClass": "company_name" },
                 { "data": "industry" },
@@ -213,9 +223,10 @@
                 { "data": "employees", "sClass": "integer" },
                 { "data": "marketCap", "sClass": "integer" },
                 { "data": "headquarters" },
-                { "data": "functions", "sClass": "functions" }
-                //{ "data": null, "defaultContent": '<div class="functions function_buttons"><ul><li class="function_edit"><a data-id="' + 1 + '" data-name="' + name + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + 1 + '" data-name="' + name + '"><span>Delete</span></a></ul></div>'}
+                //{ "data": "functions", "sClass": "functions" },
+                //{ "data": null, "defaultContent": '<div class="functions function_buttons"><ul><li class="function_edit"><a data-id="' + 1 + '" data-name="' + name + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + 1 + '" data-name="' + name + '"><span>Delete</span></a></ul></div>'},
                 //{ "data": null, "defaultContent": '<div class="functions function_buttons"><ul><li class="function_edit"><a data-id="' + data.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + 1 + '" data-name="' + name + '"><span>Delete</span></a></ul></div>' }
+                { "data": null, "sClass": "functions", "defaultContent": '<div class="function_buttons"><ul><li class="function_edit"><a><span>Edit</span></a></li><li class="function_delete"><a><span>Delete</span></a></ul></div>' }
             ],
             "aoColumnDefs": [
                 { "bSortable": false, "aTargets": [-1] }
@@ -234,6 +245,19 @@
             }
         });
 
+        //table.on('xhr.dt', function (e, settings, json) {
+        //    console.log(json[0].id);
+        //    for (var i = 0 ; i < json.length; i++)
+        //        console.log(json[i].id);
+        //    //json.data.map(function (tableData) {
+        //    //    console.log(tableData);
+        //    //})
+        //});
+
+        $('.function_edit a').on('click', function () {
+            var number = $(this).parent().parent().children("td:eq(0)").text();
+            console.log(number);
+        })
         // On page load: form validation
         jQuery.validator.setDefaults({
             success: 'valid',
@@ -375,9 +399,13 @@
         // Edit company button
         $(document).on('click', '.function_edit a', function (e) {
             e.preventDefault();
+            console.log($(this).parent().parent().parent().parent().parent().children("td:eq(0)").text());
+            var number = $(this).parent().parent().parent().parent().parent().children("td:eq(0)").text();
+            console.log(number);
             // Get company information from database
             show_loading_message();
-            var id = $(this).data('id');
+            //var id = $(this).data('id');
+            var id = number;
             var request = $.ajax({
                 url: '/api/companies',
                 cache: false,
@@ -387,6 +415,7 @@
                 type: 'get'
             });
             request.done(function (output) {
+                console.log(output.rank);
                 if (output.result == 'success') {
                     $('.lightbox_content h2').text('Edit company');
                     $('#form_company button').text('Edit company');
@@ -395,12 +424,12 @@
                     $('#form_company .field_container label.error').hide();
                     $('#form_company .field_container').removeClass('valid').removeClass('error');
                     $('#form_company #rank').val(output.data[0].rank);
-                    $('#form_company #company_name').val(output.data[0].company_name);
-                    $('#form_company #industries').val(output.data[0].industries);
+                    $('#form_company #company_name').val(output.data[0].name);
+                    $('#form_company #industries').val(output.data[0].industry);
                     $('#form_company #revenue').val(output.data[0].revenue);
-                    $('#form_company #fiscal_year').val(output.data[0].fiscal_year);
+                    $('#form_company #fiscal_year').val(output.data[0].fiscalYear);
                     $('#form_company #employees').val(output.data[0].employees);
-                    $('#form_company #market_cap').val(output.data[0].market_cap);
+                    $('#form_company #market_cap').val(output.data[0].marketCap);
                     $('#form_company #headquarters').val(output.data[0].headquarters);
                     hide_loading_message();
                     show_lightbox();
@@ -488,8 +517,7 @@
         });
 
     });
-</script>*@
+</script>
 
 @*}*@
 
-</html>

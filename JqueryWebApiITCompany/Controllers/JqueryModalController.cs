@@ -14,7 +14,7 @@ namespace JqueryWebApiITCompany.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: JqueryModal
-        public ActionResult Index(string filter = null, int page=1, int pageSize=5, string sort="Id", string sortdir="DESC")
+        public ActionResult Index(string filter = null, int page=1, int pageSize=10, string sort="Id", string sortdir="ASC")
         {
             var records = new PagedList<Company>();
             ViewBag.filter = filter;

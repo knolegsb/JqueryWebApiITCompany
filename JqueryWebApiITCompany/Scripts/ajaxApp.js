@@ -16,6 +16,7 @@
            { "data": "marketCap", "sClass": "integer" },
            { "data": "headquarters" },
            { "data": "functions", "sClass": "functions" }
+
         ],
         "aoColumnDefs": [
           { "bSortable": false, "aTargets": [-1] }

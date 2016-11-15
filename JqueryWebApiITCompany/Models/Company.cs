@@ -9,7 +9,7 @@ namespace JqueryWebApiITCompany.Models
 {
     public class Company
     {
-        [Required]
+        //[Required]
         public int Id { get; set; }
 
         [Required]

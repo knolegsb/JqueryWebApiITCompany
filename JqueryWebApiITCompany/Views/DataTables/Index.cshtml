@@ -47,22 +47,22 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rank</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtrank">
+                                            <input type="text" class="form-control" id="txtrank" placeholder="Rank">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Company Name</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="txtname" placeholder="Name">
-                                            <input type="hidden" id="crudmethod" value="N">
-                                            <input type="hidden" id="txtid" value="0">
+                                            @*<input type="hidden" id="crudmethod" value="N">
+                                            <input type="hidden" id="txtid" value="0">*@
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Industries</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtindustry">
+                                            <input type="text" class="form-control" id="txtindustry" placeholder="Industries">
                                             @*<select class="form-control" id="cbogender">
                                                 <option value="Male"> Male </option>
                                                 <option value="Female"> Female </option>
@@ -72,31 +72,31 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Revenue</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtrevenue">
+                                            <input type="text" class="form-control" id="txtrevenue" placeholder="Revenue">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Year</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtfiscalyear">
+                                            <input type="text" class="form-control" id="txtfiscalyear" placeholder="Year">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Employees</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtemployees">
+                                            <input type="text" class="form-control" id="txtemployees" placeholder="Employees">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Market Cap</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtmarketcap">
+                                            <input type="text" class="form-control" id="txtmarketcap" placeholder="Market Cap">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Headquarters</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="txtheadquarters">
+                                            <input type="text" class="form-control" id="txtheadquarters" placeholder="Headquarters">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -167,12 +167,17 @@
 
             $(document).on("click", "#btnadd", function () {
                 $("#modalcomp").modal("show");
-                $("#txtname").focus();
+                //$("#txtname").focus();
+                $("#txtrank").val("");
                 $("#txtname").val("");
-                $("#txtcountry").val("");
-                $("#txtphone").val("");
-                $("#crudmethod").val("N");
-                $("#txtid").val("0");
+                $("#txtindustry").val("");
+                $("#txtrevenue").val("");
+                $("#txtfiscalyear").val("");
+                $("#txtemployees").val("");
+                $("#txtmarketcap").val("");
+                $("#txtheadquarters").val("");
+                //$("#crudmethod").val("N");
+                //$("#txtid").val("0");
             });
 
             $(document).on("click", ".btnhapus", function () {
@@ -215,59 +220,68 @@
             });
 
             $(document).on("click", "#btnsave", function () {
-                var id_cust = $("#txtid").val();
+                var rank = $("#txtrank").val();
                 var name = $("#txtname").val();
-                var gender = $("#cbogender").val();
-                var country = $("#txtcountry").val();
-                var phone = $("#txtphone").val();
-                var crud = $("#crudmethod").val();
+                var industry = $("#txtindustry").val();
+                var revenue = $("#txtrevenue").val();
+                var fiscalYear = $("#txtfiscalyear").val();
+                var employees = $("#txtemployees").val();
+                var marketCap = $("#txtmarketcap").val();
+                var headquarters = $("#txtheadquarters").val();
                 if(name == '' || name == null){
                     swal("Warning", "Please fill customer name", "warning");
                     $("#txtname").focus();
                     return;
                 }
                 var value = {
-                    id_cust: id_cust,
+                    rank: rank,
                     name: name,
-                    gender: gender,
-                    country: country,
-                    phone: phone,
-                    crud: crud
+                    industry: industry,
+                    revenue: revenue,
+                    fiscalYear: fiscalYear,
+                    employees: employees,
+                    marketCap: marketCap,
+                    Headquarters: headquarters
                 };
                 $.ajax({
                     url: "/api/companies",
                     type: "POST",
                     data: value,
-                    success: function (data, textStatus, jqXHR) {
-                        var data = jQuery.parseJSON(data);
-                        if (data.crud == 'N') {
-                            if (data.result == 1) {
-                                $.notify('Successfull update data');
-                                var table = $('#table_cust').TataTable();
-                                table.ajax.reload(null, false);
-                                $("#txtname").focus();
-                            }
-                            else {
-                                swal("Error", "Can't update customer data, error : " + data.error, "error");
-                            }
-                        }
-                        else if (data.crud == 'E') {
-                            if (data.result == 1) {
-                                $.notify('Successfull update data');
-                                var table = $('#table_cust').DataTable();
-                                table.ajax.reload(null, false);
-                                $("#txtname").focus();
-                            }
-                            else {
-                                swal("Error", "Can't update customer data, error : " + data.error, "error");
-                            }
-                        }
-                        else {
-                            swal("Error", "invalid order", "error");
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        swal("Error!", textStatus, "error");
+
+                    //success: function (data, textStatus, jqXHR) {
+                    //    var data = jQuery.parseJSON(data);
+                    //    if (data.crud == 'N') {
+                    //        if (data.result == 1) {
+                    //            $.notify('Successfull update data');
+                    //            var table = $('#table_cust').TataTable();
+                    //            table.ajax.reload(null, false);
+                    //            $("#txtname").focus();
+                    //        }
+                    //        else {
+                    //            swal("Error", "Can't update customer data, error : " + data.error, "error");
+                    //        }
+                    //    }
+                    //    else if (data.crud == 'E') {
+                    //        if (data.result == 1) {
+                    //            $.notify('Successfull update data');
+                    //            var table = $('#table_cust').DataTable();
+                    //            table.ajax.reload(null, false);
+                    //            $("#txtname").focus();
+                    //        }
+                    //        else {
+                    //            swal("Error", "Can't update customer data, error : " + data.error, "error");
+                    //        }
+                    //    }
+                    //    else {
+                    //        swal("Error", "invalid order", "error");
+                    //    }
+                    //},
+                    //error: function (jqXHR, textStatus, errorThrown) {
+                    //    swal("Error!", textStatus, "error");
+                    //}
+
+                    success: function (data) {
+                        $("#modalcomp").modal("hide");
                     }
                 });
             });

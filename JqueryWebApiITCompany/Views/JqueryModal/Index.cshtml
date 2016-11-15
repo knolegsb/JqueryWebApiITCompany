@@ -7,6 +7,9 @@
     .action{
         width: 70px;
     }
+    tfoot > tr > td a {
+        color: white;
+    }
     tfoot > tr > td a:link{
         color: #fff;
         background-color: #428bca;
@@ -15,7 +18,10 @@
     }
 </style>
 
-<h2>Company List</h2>
+<br />
+<h2>IT Company Rank by Revenue</h2>
+<br />
+<br />
 <div class="well">
     @using (Html.BeginForm("Index", null, FormMethod.Get))
     {
@@ -36,13 +42,13 @@
 
             <div class="col-sm-6">
                 <div class="input-group">
-                    <span class="input-group-addon">Number of Entries</span>
+                    <span class="input-group-addon" style="background-color: #337ab7; border-color: #2e6da4; color: white; border-radius: 5px 0 0 5px; font-family: Helvetica, sans-serif">Number of Entries</span>
                     <div>
                         @using (Html.BeginForm("Index", "JqueryModal", FormMethod.Get, new { @class = "pull-right", style = "margin-top: 12px;" }))
                         {
                               @Html.DropDownList("PageSize",
             new SelectList(new Dictionary<string, int> { {"3", 3 }, {"5", 5 }, { "10", 10 },
-                { "20", 20 }, { "50", 50 }, { "100", 100 }}, "Key", "Value"), new { @class = "form-control", id = "pagesizelist", style = "width:80px;" })
+                { "20", 20 }, { "50", 50 }, { "100", 100 }}, "Key", "Value"), new { @class = "form-control", id = "pagesizelist", style = "width:80px; border-radius: 0 5px 5px 0;" })
                         }
                     </div>
                 </div>
@@ -95,32 +101,6 @@
     }
 </div>
 
-<div class="col-md-6 text-right">
-    <p>Number of Entries</p>
-    @using (Html.BeginForm("Index", "JqueryModal", FormMethod.Get, new { @class = "pull-right", style = "margin-top: 12px;" }))
-    {
-        @*@Html.DropDownList("PageSize", new List<SelectListItem> {
-                new SelectListItem() { Text = "10", Value="10" },
-                new SelectListItem() { Text = "20", Value="20" },
-                new SelectListItem() { Text = "50", Value="50" },
-                new SelectListItem() { Text = "100", Value="100" },
-            })*@
-        @Html.DropDownList("PageSize",
-            new SelectList(new Dictionary<string, int> { {"3", 3 }, {"5", 5 }, { "10", 10 },
-                { "20", 20 }, { "50", 50 }, { "100", 100 }}, "Key", "Value"), new { @class = "form-control", id = "pagesizelist", style = "width:80px;" })
-    }
-</div>
-
-@*@section scripts{
-    <script type="text/javascript">
-        $("#pagesizelist").on('change', function (event) {
-            var form = $(event.target).parents('form');
-
-            form.submit();
-        });
-    </script>
-}*@
-
 <!-- modal placeholder -->
 <div id="myModal" class="modal fade in">
     <div class="modal-dialog">
@@ -131,13 +111,13 @@
 </div>
 
 @section Scripts{
-<script type="text/javascript">
-        $("#pagesizelist").on('change', function (event) {
-            var form = $(event.target).parents('form');
-
-            form.submit();
-        });
-</script>
+    <script>
+            $("#pagesizelist").on('change', function (event) {
+                var form = $(event.target).parents('form');
+    
+                form.submit();
+            });
+    </script>
     <script>
         $(function () {
             $.ajaxSetup({ cache: false });
