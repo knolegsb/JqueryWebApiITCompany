@@ -273,6 +273,10 @@
     <Compile Include="Migrations\201610071906569_PopulateDataOnCompanies.Designer.cs">
       <DependentUpon>201610071906569_PopulateDataOnCompanies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611150745522_ChangeFiscalYearColumn.cs" />
+    <Compile Include="Migrations\201611150745522_ChangeFiscalYearColumn.Designer.cs">
+      <DependentUpon>201611150745522_ChangeFiscalYearColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -554,6 +558,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\companyApp\companyApp.js" />
+    <Content Include="Scripts\DataTables\fnReloadAjax.js" />
     <Content Include="Scripts\dirPagination.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -1481,6 +1486,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610071906569_PopulateDataOnCompanies.resx">
       <DependentUpon>201610071906569_PopulateDataOnCompanies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611150745522_ChangeFiscalYearColumn.resx">
+      <DependentUpon>201611150745522_ChangeFiscalYearColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

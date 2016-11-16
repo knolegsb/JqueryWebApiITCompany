@@ -29,9 +29,9 @@ namespace JqueryWebApiITCompany.Models
         [Required]
         //[RegularExpression(@"^(\d{4})$", ErrorMessage = "Enter a valid 4 digit Year")]
         [Display(Name = "Year")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime FiscalYear { get; set; }
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public string FiscalYear { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString="{0:N}")]

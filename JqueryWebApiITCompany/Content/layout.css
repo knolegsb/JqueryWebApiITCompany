@@ -208,7 +208,7 @@ button.button:active {
   position: absolute;
   top: 0;
   right: 0;
-  margin-right: -25px;
+  margin-right: 0;
 }
 .dataTables_filter label {
   line-height: 30px;

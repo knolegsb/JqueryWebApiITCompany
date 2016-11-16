@@ -29,7 +29,7 @@
         <h1>Largest IT Companies by Revenue</h1>
         
         <button type="button" class="button" id="add_company">Add Company</button>
-        <table class="datatable" id="tableCompanies">
+        <table class="datatable" id="table_companies">
             <thead>
                 <tr>
                     <th class=".hiddenId">Id</th>
@@ -126,13 +126,13 @@
                 <div class="input_container">
                     <label for="company_name">Company name: <span class="required">*</span></label>
                     <div class="field_container">
-                        <input type="text" class="text" name="company_name" id="name" value="" required>
+                        <input type="text" class="text" name="name" id="name" value="" required>
                     </div>
                 </div>
                 <div class="input_container">
                     <label for="industries">Industries: <span class="required">*</span></label>
                     <div class="field_container">
-                        <input type="text" class="text" name="industries" id="industry" value="" required>
+                        <input type="text" class="text" name="industry" id="industry" value="" required>
                     </div>
                 </div>
                 <div class="input_container">
@@ -144,7 +144,7 @@
                 <div class="input_container">
                     <label for="fiscal_year">Fiscal year: <span class="required">*</span></label>
                     <div class="field_container">
-                        <input type="number" min="0" class="text" name="fiscalYear" id="fiscal_year" value="" required>
+                        <input type="text" class="text" name="fiscalYear" id="fiscalYear" value="" required>
                     </div>
                 </div>
                 <div class="input_container">
@@ -156,7 +156,7 @@
                 <div class="input_container">
                     <label for="market_cap">Market cap: <span class="required">*</span></label>
                     <div class="field_container">
-                        <input type="number" step="1" min="0" class="text" name="marketCap" id="market_cap" value="" required>
+                        <input type="number" step="1" min="0" class="text" name="marketCap" id="marketCap" value="" required>
                     </div>
                 </div>
                 <div class="input_container">
@@ -205,7 +205,7 @@
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>*@
 <script type="text/javascript">
     $(function () {
-        var table = $("#tableCompanies").DataTable({
+        var table = $("#table_companies").DataTable({
             ajax: {
                 url: "/api/companies",
                 dataSrc: ""
@@ -219,7 +219,7 @@
                 { "data": "name", "sClass": "company_name" },
                 { "data": "industry" },
                 { "data": "revenue", "sClass": "integer" },
-                { "data": "fiscalYear", "sClass": "integer" },
+                { "data": "fiscalYear" },
                 { "data": "employees", "sClass": "integer" },
                 { "data": "marketCap", "sClass": "integer" },
                 { "data": "headquarters" },
@@ -245,19 +245,7 @@
             }
         });
 
-        //table.on('xhr.dt', function (e, settings, json) {
-        //    console.log(json[0].id);
-        //    for (var i = 0 ; i < json.length; i++)
-        //        console.log(json[i].id);
-        //    //json.data.map(function (tableData) {
-        //    //    console.log(tableData);
-        //    //})
-        //});
-
-        $('.function_edit a').on('click', function () {
-            var number = $(this).parent().parent().children("td:eq(0)").text();
-            console.log(number);
-        })
+       
         // On page load: form validation
         jQuery.validator.setDefaults({
             success: 'valid',
@@ -348,12 +336,12 @@
             $('#form_company .field_container label.error').hide();
             $('#form_company .field_container').removeClass('valid').removeClass('error');
             $('#form_company #rank').val('');
-            $('#form_company #company_name').val('');
-            $('#form_company #industries').val('');
+            $('#form_company #name').val('');
+            $('#form_company #industry').val('');
             $('#form_company #revenue').val('');
-            $('#form_company #fiscal_year').val('');
+            $('#form_company #fiscalYear').val('');
             $('#form_company #employees').val('');
-            $('#form_company #market_cap').val('');
+            $('#form_company #marketCap').val('');
             $('#form_company #headquarters').val('');
             show_lightbox();
         });
@@ -368,28 +356,31 @@
                 hide_lightbox();
                 show_loading_message();
                 var form_data = $('#form_company').serialize();
-                var request = $.ajax({
+                console.log(form_data);
+                var request = $.ajax({                
                     url: '/api/companies',
                     cache: false,
-                    data: form_data,
+                    data: JSON.stringify(form_data),
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    type: 'get'
-                });
-                request.done(function (output) {
-                    if (output.result == 'success') {
-                        // Reload datable
-                        table_companies.api().ajax.reload(function () {
+                    type: 'post',
+                    });
+                    request.done(function (output) {                    
+                        console.log(output);
+                        if (output.result == 'success') {
+                            // Reload datable
+                            table_companies.api().ajax.reload(function () {
+                                hide_loading_message();
+                                var company_name = $('#name').val();
+                                show_message("Company '" + company_name + "' added successfully.", 'success');
+                            }, true);
+                        } else {
                             hide_loading_message();
-                            var company_name = $('#company_name').val();
-                            show_message("Company '" + company_name + "' added successfully.", 'success');
-                        }, true);
-                    } else {
-                        hide_loading_message();
-                        show_message('Add request failed', 'error');
-                    }
-                });
-                request.fail(function (jqXHR, textStatus) {
+                            show_message('Add request failed', 'error');
+                        }
+                    });
+
+                    request.fail(function (jqXHR, textStatus) {
                     hide_loading_message();
                     show_message('Add request failed: ' + textStatus, 'error');
                 });
@@ -399,9 +390,9 @@
         // Edit company button
         $(document).on('click', '.function_edit a', function (e) {
             e.preventDefault();
-            console.log($(this).parent().parent().parent().parent().parent().children("td:eq(0)").text());
+            //console.log($(this).parent().parent().parent().parent().parent().children("td:eq(0)").text());
             var number = $(this).parent().parent().parent().parent().parent().children("td:eq(0)").text();
-            console.log(number);
+            //console.log(number);
             // Get company information from database
             show_loading_message();
             //var id = $(this).data('id');
@@ -412,25 +403,26 @@
                 data: 'id=' + id,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                type: 'get'
+                type: 'GET'
             });
             request.done(function (output) {
-                console.log(output.rank);
-                if (output.result == 'success') {
+                console.log(typeof(output.fiscalYear));
+                //if (output.result == 'success') {
+                if(output != null){
                     $('.lightbox_content h2').text('Edit company');
                     $('#form_company button').text('Edit company');
                     $('#form_company').attr('class', 'form edit');
                     $('#form_company').attr('data-id', id);
                     $('#form_company .field_container label.error').hide();
                     $('#form_company .field_container').removeClass('valid').removeClass('error');
-                    $('#form_company #rank').val(output.data[0].rank);
-                    $('#form_company #company_name').val(output.data[0].name);
-                    $('#form_company #industries').val(output.data[0].industry);
-                    $('#form_company #revenue').val(output.data[0].revenue);
-                    $('#form_company #fiscal_year').val(output.data[0].fiscalYear);
-                    $('#form_company #employees').val(output.data[0].employees);
-                    $('#form_company #market_cap').val(output.data[0].marketCap);
-                    $('#form_company #headquarters').val(output.data[0].headquarters);
+                    $('#form_company #rank').val(output.rank);
+                    $('#form_company #name').val(output.name);
+                    $('#form_company #industry').val(output.industry);
+                    $('#form_company #revenue').val(output.revenue);
+                    $('#form_company #fiscalYear').val(output.fiscalYear);
+                    $('#form_company #employees').val(output.employees);
+                    $('#form_company #marketCap').val(output.marketCap);
+                    $('#form_company #headquarters').val(output.headquarters);
                     hide_loading_message();
                     show_lightbox();
                 } else {
@@ -461,14 +453,14 @@
                     data: form_data,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    type: 'get'
+                    type: 'PUT'
                 });
                 request.done(function (output) {
                     if (output.result == 'success') {
                         // Reload datable
                         table_companies.api().ajax.reload(function () {
                             hide_loading_message();
-                            var company_name = $('#company_name').val();
+                            var company_name = $('#name').val();
                             show_message("Company '" + company_name + "' edited successfully.", 'success');
                         }, true);
                     } else {
@@ -486,18 +478,20 @@
         // Delete company
         $(document).on('click', '.function_delete a', function (e) {
             e.preventDefault();
-            var company_name = $(this).data('name');
+            //var company_name = $(this).data('name');
+            var company_name = $(this).parent().parent().parent().parent().parent().children("td:eq(2)").text();
             if (confirm("Are you sure you want to delete '" + company_name + "'?")) {
                 show_loading_message();
-                var id = $(this).data('id');
+                var id = $(this).parent().parent().parent().parent().parent().children("td:eq(0)").text();
                 var request = $.ajax({
                     url: '/api/companies/' + id,
                     cache: false,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    type: 'get'
+                    type: 'DELETE'
                 });
                 request.done(function (output) {
+                    console.log(output);
                     if (output.result == 'success') {
                         // Reload datable
                         table_companies.api().ajax.reload(function () {

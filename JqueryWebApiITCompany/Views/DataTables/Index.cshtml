@@ -2,22 +2,26 @@
     Layout = "~/Views/Shared/_JqueryLayout.cshtml";
 }
 
+
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 @*<link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />*@
 @*<link rel="stylesheet" href="~/Content/layout.css">*@
-<div id="page_container">
-    <div id="page_container">
+@*<div id="page_container">*@
+    <div class="container">
         <h1>Largest IT Companies by Revenue</h1>
 
         <section class="content">
             <div class="box">
                 <div class="box-body">
-                    <button type="submit" class="btn btn-primary" id="btnadd"><i class="fa fa-plus"></i> Add Customer</button>
-                    <div class="box-body" style="max-width: 900px;">
+                    <button type="submit" class="btn btn-primary" id="btnadd"><i class="fa fa-plus"></i> Add Customer</button> &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary" id="btnrefresh">Refresh</button>
+                    <br />
+                    <br />
+                    @*<div class="box-body" style="max-width: 900px;">*@
                         <table class="datatable table table-striped table-bordered table-hover" id="table_companies">
                             <thead>
                                 <tr class="tableheader">
+                                    <th>Id</th>
                                     <th>Rank</th>
                                     <th>Company Name</th>
                                     <th>Industries</th>
@@ -26,12 +30,12 @@
                                     <th>Employess</th>
                                     <th>Market Cap</th>
                                     <th>Headquarters</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
-                    </div>
+                    @*</div>*@
                 </div>
 
                 <div id="modalcomp" class="modal">
@@ -115,6 +119,7 @@
             <table class="datatable" id="table_companies">
                 <thead>
                     <tr>
+                        <th>Id<td>
                         <th>Rank</th>
                         <th>Company Name</th>
                         <th>Industries</th>
@@ -134,24 +139,28 @@
     @section scripts{
     <script src="~/Scripts/sweetalert.min.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.12/api/fnReloadAjax.js"></script>
     <script src="~/Scripts/bootstrap-notify.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#table_companies').DataTable({
-                    paging: true,
-                    lengthChange: true,
-                    searching: true,
-                    ordering: true,
-                    info: false,
-                    responsive: true,
-                    autoWidth: false,
-                    pageLength: 10,
+            $(function () {
+                var table_companies = $('#table_companies').DataTable({
+                    dom: '<E><"row"<"col-sm-6"f><"col-sm-6 text-right"l>><"table-responsive"rt><"row"<"col-sm-6"i><"col-sm-6 text-right"p>>',
+                    deferRender: true,
+                    ////paging: true,
+                    ////lengthChange: true,
+                    ////searching: true,
+                    ////ordering: true,
+                    ////info: false,
+                    ////responsive: true,
+                    ////autoWidth: false,
+                    ////pageLength: 10,
                     ajax: {
                         "url": "/api/companies",
                         "dataSrc": ""
                     },
                     columns: [
+                        { "data": "id" },
                         { "data": "rank" },
                         { "data": "name" },
                         { "data": "industry" },
@@ -160,10 +169,42 @@
                         { "data": "employees" },
                         { "data": "marketCap" },
                         { "data": "headquarters" },
-                        { "data": null }
+                        { "data": null, "defaultContent": '<td><a href="#"><i class="fa fa-pencil" style="font-size:24px;"></i></a> &nbsp; <a href="#"><i class="fa fa-trash" style="font-size:24px;"></i></a></td>' }
                     ]
                 });
             });
+
+            $("#btnrefresh").on("click", function () {
+                table_companies.ajax.reload(null, true);
+            })
+            //function getById() {
+                
+            //    console.log($(this));
+            //    var id = $(this);
+            //}
+
+            $(document).on('click', '.fa-pencil', function (e) {
+                e.preventDefault();
+                console.log($(this).parent().parent().parent().children("td:eq(0)").text());
+                var id = $(this).parent().parent().parent().children("td:eq(0)").text();
+                $.ajax({
+                    url: '/api/companies/' + id,
+                    type: 'GET',
+                    contentType: 'application/json; charset=UTF-8',
+                    dataType: 'json',
+                    success: function (result) {
+                        $("#modalcomp").modal("show");
+                        $("#txtrank").val(result.rank);
+                        $("#txtname").val(result.name);
+                        $("#txtindustry").val(result.industry);
+                        $("#txtrevenue").val(result.revenue);
+                        $("#txtfiscalyear").val(result.fiscalYear);
+                        $("#txtemployees").val(result.employees);
+                        $("#txtmarketcap").val(result.marketCap);
+                        $("#txtheadquarters").val(result.headquarters);
+                    }
+                })
+            })
 
             $(document).on("click", "#btnadd", function () {
                 $("#modalcomp").modal("show");
@@ -180,43 +221,71 @@
                 //$("#txtid").val("0");
             });
 
-            $(document).on("click", ".btnhapus", function () {
-                var id_cust = $(this).attr("id_cust");
-                var name = $(this).attr("name_cust");
-                swal({
-                    title: "Delete Cust?",
-                    text: "Delete Cust : " + name + " ?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Delete",
-                    closeOnConfirm: true
-                },
-                  function () {
-                      var value = {
-                          id_cust: id_cust
-                      };
-                      $.ajax(
-                      {
-                          url: "/api/companies",
-                          type: "DELETE",
-                          data: value,
-                          success: function (data, textStatus, jqXHR) {
-                              var data = jQuery.parseJSON(data);
-                              if (data.result == 1) {
-                                  $.notify('Successfull delete customer');
-                                  var table = $('#table_cust').DataTable();
-                                  table.ajax.reload(null, false);
-                              } else {
-                                  swal("Error", "Can't delete customer data, error : " + data.error, "error");
-                              }
+            $(document).on("click", ".fa-trash", function (e) {
+                e.preventDefault();
+                var id = $(this).parent().parent().parent().children("td:eq(0)").text();
+                var name = $(this).parent().parent().parent().children("td:eq(2)").text();
+                var answer = confirm("Are you sure you want to delete this record of '" + name + "'?");
+                
+                if (answer) {
+                    var request = $.ajax({
+                        url: "/api/companies/" + id,
+                        type: "DELETE",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json"
+                    });
+                    request.done( function (result) {
+                        if (result != null) {
+                            table_companies.fnReloadAjax('/api/companies');
+                            //table_companies.api().ajax.reload(function () {
+                            //    hide_loading_message();
+                            //    show_message("Company '" + name + "' deleted successfully.");
+                            //}, true);
+                        } else {
+                            hide_loading_message();
+                            show_message("Delete request failed");
+                        }
+                    });
+                    request.fail(function (errormessage) {
+                        alert(errormessage.responseText);
+                    });                                        
+                }
+                //var id_cust = $(this).attr("id_cust");
+                //var name = $(this).attr("name_cust");
+                //swal({
+                //    title: "Delete Cust?",
+                //    text: "Delete Cust : " + name + " ?",
+                //    type: "warning",
+                //    showCancelButton: true,
+                //    confirmButtonColor: "#DD6B55",
+                //    confirmButtonText: "Delete",
+                //    closeOnConfirm: true
+                //},
+                //  function () {
+                //      var value = {
+                //          id_cust: id_cust
+                //      };
+                //      $.ajax(
+                //      {
+                //          url: "/api/companies",
+                //          type: "DELETE",
+                //          data: value,
+                //          success: function (data, textStatus, jqXHR) {
+                //              var data = jQuery.parseJSON(data);
+                //              if (data.result == 1) {
+                //                  $.notify('Successfull delete customer');
+                //                  var table = $('#table_cust').DataTable();
+                //                  table.ajax.reload(null, false);
+                //              } else {
+                //                  swal("Error", "Can't delete customer data, error : " + data.error, "error");
+                //              }
 
-                          },
-                          error: function (jqXHR, textStatus, errorThrown) {
-                              swal("Error!", textStatus, "error");
-                          }
-                      });
-                  });
+                //          },
+                //          error: function (jqXHR, textStatus, errorThrown) {
+                //              swal("Error!", textStatus, "error");
+                //          }
+                //      });
+                //  });
             });
 
             $(document).on("click", "#btnsave", function () {
@@ -281,7 +350,10 @@
                     //}
 
                     success: function (data) {
+                        table_companies.draw();
                         $("#modalcomp").modal("hide");
+                        //table_companies.ajax.url("/api/companies/");
+                        
                     }
                 });
             });
@@ -312,9 +384,14 @@
                     }
                 });
             });
-            $.notifyDefault({
-                type: 'success',
-                delay: 500
-            });
+            //$.notifyDefault({
+            //    type: 'success',
+            //    delay: 500
+            //});
+
+            // Show message
+            function show_message(message_text, message_type) {
+                
+            }
         </script>
     }
