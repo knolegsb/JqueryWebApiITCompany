@@ -251,6 +251,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DataTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ITCompanyController.cs" />
     <Compile Include="Controllers\JqueryCompaniesController.cs" />
     <Compile Include="Controllers\JqueryCompanyController.cs" />
     <Compile Include="Controllers\JqueryModalController.cs" />
@@ -1468,6 +1469,7 @@
     <Content Include="Views\Shared\ModalPartials\Edit.cshtml" />
     <Content Include="Views\Shared\ModalPartials\Details.cshtml" />
     <Content Include="Views\Shared\ModalPartials\Delete.cshtml" />
+    <Content Include="Views\ITCompany\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
