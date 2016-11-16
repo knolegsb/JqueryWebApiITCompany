@@ -444,6 +444,7 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\sweetalert\docs.css" />
     <Content Include="Content\sweetalert\sweet-alert.css" />
@@ -494,6 +495,21 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\bsms-icons-mgmt.png" />
+    <Content Include="Images\bsms-icons-reports.png" />
+    <Content Include="Images\bsms-icons-stops.png" />
+    <Content Include="Images\bsms-icons-users.png" />
+    <Content Include="Images\bsms-icons-work.png" />
+    <Content Include="Images\bsms-logo.png" />
+    <Content Include="Images\busstopicon.png" />
+    <Content Include="Images\Error404.png" />
+    <Content Include="Images\Error500.png" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\menu.png" />
+    <Content Include="Images\pagination.png" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
     <Content Include="Images\wait.gif" />
     <Content Include="index.html" />
     <Content Include="ngIndex.html" />
@@ -1471,6 +1487,7 @@
     <Content Include="Views\Shared\ModalPartials\Delete.cshtml" />
     <Content Include="Views\ITCompany\Index.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

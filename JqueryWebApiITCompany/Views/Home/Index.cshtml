@@ -1,9 +1,10 @@
 ﻿
 @{
     ViewBag.Title = "Bus Stops";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";    
 }
 
-<h1>Reports</h1>
+<h1>MVC 5 Form View DataTable Samples</h1>
 @*<p>Select a report.</p>*@
 
 <!-- CONTENT -->
@@ -13,83 +14,83 @@
     <div class="row">
         <div class="media col-sm-6" style="margin-top:15px;">
             <div class="media-left col-xs-3">
-                <a href="@Url.Action("AdaComplianceReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a>
+                <a href="@Url.Action("Index", "Angular")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a>
             </div>
             <div class="media-body">
-                <h3 class="media-heading">ADA Compliance Report</h3>
+                <h3 class="media-heading">Angular Searching Sorting Paging</h3>
                 <p>List of all bus stops that have ADA compliance issues. </p>
-                @Html.ActionLink("View Report", "AdaComplianceReport", "Report")
+                @Html.ActionLink("View Page", "Index", "Angular")
                 @*<a href="report-ada-general.html">View Report</a>*@
             </div>
         </div>
         <div class="media col-sm-6">
             <div class="media-left col-xs-3">
-                <a href="@Url.Action("AdaRepairCostReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a>
+                <a href="@Url.Action("Index", "SFPCompany")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a>
             </div>
             <div class="media-body">
-                <h3 class="media-heading">ADA Repair Cost Report</h3>
+                <h3 class="media-heading">MVC 5 with DataTables</h3>
                 <p>List of all bus stops that have ADA compliance issues and the cost to repair per bus stop. </p>
-                @Html.ActionLink("View Report", "AdaRepairCostReport", "Report")
+                @Html.ActionLink("View Page", "Index", "SFPCompany")
                 @*<a href="report-ada-costs.html">View Report</a>*@
             </div>
         </div>
     </div>
     <div class="row">
         <div class="media col-sm-6" style="margin-top:15px;">
-            <div class="media-left col-xs-3"><a href="@Url.Action("Index", "BusStop")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-left col-xs-3"><a href="@Url.Action("Index", "JqueryModal")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a> </div>
             <div class="media-body">
-                <h3 class="media-heading">Single Bus Stop Report</h3>
+                <h3 class="media-heading">MVC 5 Jquery with Modal</h3>
                 <p>To find information about a specific bus stop or bus stop by ID, search the Bus Stops list.  </p>
-                @Html.ActionLink("View Report", "Index", "BusStop")
+                @Html.ActionLink("View Page", "Index", "JqueryModal")
                 @*<a href="bus-stops.html">View All Bus Stops</a>*@
             </div>
         </div>
         <div class="media col-sm-6">
-            <div class="media-left col-xs-3"> <a href="@Url.Action("CityOwnedBusStopsReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-left col-xs-3"> <a href="@Url.Action("Index", "JqueryCompany")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a> </div>
             <div class="media-body">
-                <h3 class="media-heading">City-Owned Bus Stops Report</h3>
+                <h3 class="media-heading">MVC 5 Jquery</h3>
                 <p>List of all bus stops within a city.</p>
-                @Html.ActionLink("View Report", "CityOwnedBusStopsReport", "Report")
+                @Html.ActionLink("View Page", "Index", "JqueryCompany")
                 @*<a href="report-city-stops.html">View Report</a>*@
             </div>
         </div>
     </div>
     <div class="row">
         <div class="media col-sm-6" style="margin-top:15px;">
-            <div class="media-left col-xs-3"> <a href="@Url.Action("WorkOrdersReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-left col-xs-3"> <a href="@Url.Action("Index", "Company")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a> </div>
             <div class="media-body">
-                <h3 class="media-heading">Work Orders Report</h3>
+                <h3 class="media-heading">MVC 5 with DataTables</h3>
                 <p>View work order activity within a certain date range.</p>
-                @Html.ActionLink("View Report", "WorkOrdersReport", "Report")
+                @Html.ActionLink("View Page", "Index", "Company")
                 @*<a href="report-work-orders.html">View Report</a>*@
             </div>
         </div>
         <div class="media col-sm-6">
-            <div class="media-left col-xs-3"> <a href="@Url.Action("AuditLogs", "Management")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-left col-xs-3"> <a href="@Url.Action("Index","ITCompany")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a> </div>
             <div class="media-body">
-                <h3 class="media-heading">Audit Trail Report</h3>
+                <h3 class="media-heading">MVC 5 Jquery Ajax DataTables</h3>
                 <p>Audit trail report showing data changes (on Bus Stops, Work Orders and User Profiles) and the user who performed the change. </p>
-                @Html.ActionLink("View Report", "AuditLogs", "Management")
+                @Html.ActionLink("View Page", "Index", "ITCompany")
                 @*<a href="audit-logs.html">View Audit Logs</a>*@
             </div>
         </div>
     </div>
     <div class="row">
         <div class="media col-sm-6" style="margin-top:15px;">
-            <div class="media-left col-xs-3"> <a href="@Url.Action("CustomReportTool", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-left col-xs-3"> <a href="@Url.Action("Index", "DataTables")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a> </div>
             <div class="media-body">
-                <h3 class="media-heading">Custom Report Tool</h3>
+                <h3 class="media-heading">MVC 5 Jquery AJax DataTables II</h3>
                 <p>Custom reports using field selector. </p>
-                @Html.ActionLink("View Report", "CustomReport", "Report")
+                @Html.ActionLink("View Page", "Index", "DataTables")
                 @*<a href="report-custom.html">Create a Custom Report</a>*@
             </div>
         </div>
         <div class="media col-sm-6">
-            <div class="media-left col-xs-3"> <a href="@Url.Action("GeoLocationReport", "Report")"> <img class="media-object img-responsive" src="img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-left col-xs-3"> <a href="@Url.Action("GeoLocationReport", "Report")"> <img class="media-object img-responsive" src="/Images/bsms-icons-reports.png"> </a> </div>
             <div class="media-body">
                 <h3 class="media-heading">Geo Location Report</h3>
                 <p>View Bus Stops on a Map. </p>
-                @Html.ActionLink("View Report", "GeoLocationReport", "Report")
+                @Html.ActionLink("View Page", "GeoLocationReport", "Report")
                 @*<a href="audit-logs.html">View Audit Logs</a>*@
             </div>
         </div>

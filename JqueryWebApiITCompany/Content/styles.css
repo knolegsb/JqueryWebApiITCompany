@@ -1,0 +1,424 @@
+/**
+ * TABLE OF CONTENTS
+ * ============================================================
+
+	4. HEADER
+	3. PAGINATION
+	7. TABLE
+	8. MISC TOOLS
+
+ */
+
+
+/**
+ * COLORS
+ * ============================================================
+
+	Black			#000
+	Near Black		#201f1f #424345(text and header bkg)
+	Grey			#626566 (tabs)
+	Lt Grey			#f4f4f4 (side bkg) 
+	White			#fff
+	
+	Dark blue		#00314e #1a5f96 (btn)
+	Medium blue		#00598e #017cc0 (links)
+	Light blue		#4d8cb0  #67b8e5
+	Lighter blue	#bbdcef  #bde6fb (highlight tab)
+	Lightest blue	#d9f1ff (hover state)
+	
+	Blue/gray		#d1dfe7 (border)
+	
+	Dark gray		#393939 (header bg)
+	Medium gray		#9d9d9d (select)
+	Light gray		#c3c3c3 (border)
+	Lightest gray	#eee (table row bg)
+	
+	Dark orange		#b75220  (btn2 border)
+	Orange			#f1592a (btn2)
+	Light orange	#f6915f
+	yellow			#ffca08
+
+ */
+
+
+ /**
+ * General
+ * ============================================================
+ */
+
+.body {
+	background-color: #fff;
+	padding-bottom: 40px;
+	min-height: 900px;
+}
+
+h4, .h4 {
+font-weight: normal;	
+}
+.affix {
+	top: 10px;
+}
+
+.alerts {
+margin-top: 10px;	
+}
+/* login */
+
+.login-header {
+padding-bottom: 25px;	
+}
+
+.list-arrow {
+padding: 10px;	
+margin-left: 5px;
+}
+.list-arrow li {
+padding: 9px 5px;	
+}
+
+/* bus stop detail */
+
+.section-head a {
+padding: 5px;	
+}
+
+.section-head a:active, .section-head a:focus {
+text-decoration:none;	
+}
+.back-to-top {
+	padding-left: 10px;
+	margin-top: 20px;
+}
+
+ .bus-stop-sidenav {
+	 margin: 20px 0;
+ }
+ 
+ .bus-stop-sidenav>li>a {
+	 padding-left: 20px;
+ }
+ 
+ .bus-stop-sidenav>li>a:hover {
+	 background-color: #DBF3FF;
+ }
+ 
+ .panel-white .panel-body {
+	background-color: #fff; 
+ }
+  .panel-white .panel-heading {
+	background-color: #f4f4f4; 
+ }
+ 
+   .panel .panel-heading {
+	background-image:none;
+ }
+
+label em {
+font-weight: normal;
+font-size: 12px;	
+}
+
+.stop-edit-form .input-group {
+	margin-bottom: 10px;
+}
+ 
+ /* Work Orders */
+ .add-another {
+	margin-top: 10px; 
+ }
+ 
+ #searchStopIDs, #stopsAdded, #stopsFromIDs, #convoGroup{
+ display:none;
+ }
+ 
+ .convo-line .date em {
+	font-size:11px;
+	color: #777;
+ }
+.task-group .list-group-item{
+	border-color: #777; 
+ }
+ .task-group h4{
+	font-weight: bold;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #777;
+ }
+
+.photo-thumb .glyphicon {
+	font-size: 28px;
+}
+
+/* Reports */
+.media:first-child {
+margin-top: 15px;
+}
+
+.ada-icon {
+font-size: 25px;	
+}
+
+.sub-table td {
+font-size: 11px;
+	
+}
+/**
+ * HEADER
+ * ============================================================
+ */
+.navbar {
+	border-bottom: solid 5px #bde6fb;
+	margin-bottom: 0px;
+}
+.navbar .navbar-brand {
+	padding: 10px 10px 10px;
+	height: 80px;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .active > a {
+	background-image: none;
+	background-repeat: no-repeat;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbde6fb', endColorstr='#ffc9ebfc', GradientType=0);
+	-webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.25);
+	box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.25);
+}
+.navbar-nav>li>a {
+	padding: 7px 13px;
+	background-color: #626566;
+	margin-left: 5px;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+	color: #424345;
+	background-color: #bde6fb;
+}
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+	color: #fff;
+	background-color: #7B8689;
+}
+.navbar-text a, .navbar-text a:link, .footer a, .footer a:link {
+	color: #bde6fb;
+}
+.navbar-text a:hover, .footer a:hover {
+	color: #fff;
+}
+.navbar-text a:active, .footer a:active {
+	color: #fff;
+}
+span.divider {
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #e5e5e5;
+}
+/**
+ * FOOTER
+ * ============================================================
+ */
+
+.footer {
+	padding: 20px 0px;
+	font-size: 12px;
+	color: #dcdddf;
+	background-color: #626566;
+	border-bottom: solid 10px #424345;
+}
+/**
+ * TABLE
+ * ============================================================
+ 
+
+.dataTables_wrapper {
+	overflow: auto;
+	border-bottom: 1px solid #ccc;
+}
+	table {
+		border: 1px solid #626566;
+	}
+		table tr { 
+			border-bottom: 1px solid #626566;
+		}
+		table tr:nth-child(even) {
+			background: #eee;
+		}*/
+		
+.dataTables_wrapper, .content-add {
+margin-top: 10px;
+}
+table td {
+}
+thead td {
+	background: #626566;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 2px solid #626566;
+}
+thead td em {
+	font-weight: normal;
+	font-size: 12px;
+}
+thead .sorting {
+	background-image: url("../img/sort_both.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+}
+thead .sorting_asc {
+	background-image: url("../img/sort_asc.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+}
+thead .sorting_desc {
+	background-image: url("../img/sort_desc.png");
+	background-position: center right;
+	background-repeat: no-repeat;
+}
+tbody td {
+	line-height: 2em !important;
+}
+table thead tr td:last-child,  table tbody tr td:last-child {
+	border-right: 0;
+}
+/**
+ * MISC TOOLS
+ * ============================================================
+ */
+ 
+/* search*/
+
+.dataTables_filter {
+	font-size: 12px;
+}
+.dataTables_filter input[type="search"] {
+	border: 3px solid #4d8cb0;
+	padding: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 5px;
+}
+.dataTables_filter input[type="search"]:focus {
+	border-color: #201f1f;
+	outline: none;
+}
+/* show # entries */
+
+.dataTables_length {
+	font-size: 12px;
+	padding: 5px 0;
+}
+/* show # out of # entries */
+
+.dataTables_info {
+	padding: 5px 0;
+	font-size: 12px;
+	font-style: italic;
+}
+/**
+ * PAGINATION
+ * ============================================================
+ */
+
+.dataTables_paginate {
+	padding: 5px 0;
+}
+.paginate_button {
+	display: inline-block;
+	padding: 4px 8px;
+	color: #1a5f96;
+	font-size: 12px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 2px solid #2c6b90;
+	text-decoration: none;
+	margin-left: 5px;
+	background-image: -webkit-linear-gradient(top, #ffffff 0%, #e0e0e0 100%);
+	background-image: -o-linear-gradient(top, #ffffff 0%, #e0e0e0 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e0e0e0));
+	background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe0e0e0', GradientType=0);
+ filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	background-repeat: repeat-x;
+	border-color: #dbdbdb;
+	text-shadow: 0 1px 0 #fff;
+	border-color: #ccc;
+}
+.dataTables_paginate .current, .dataTables_paginate .current:hover {
+	background: #4d8cb0;
+	border-color: #336D9C;
+	color: #fff;
+	text-decoration: none;
+}
+.paginate_button:hover {
+	cursor: pointer;
+	color: #336D9C;
+	border-color: #4d8cb0;
+}
+.paginate_button:focus {
+	outline: none;
+}
+/**
+ * FORMS
+ * ============================================================
+ */
+ 
+.help-block {
+	font-size: 12px;
+	font-style: italic;
+}
+.required {
+	font-weight: bold;
+	color: #A30000;
+}
+
+/**
+ * Media Queries
+ * ============================================================
+ */
+
+ /* SMtoXS - mobile AND Tablet */
+@media (max-width: 991px) {
+	.back-to-top {
+		margin-top: 0px;
+	}
+	.affix {
+		position: relative;
+	}
+}
+
+/* XS - mobile only */
+@media (max-width: 767px) {
+	.navbar .navbar-brand {
+		height: 65px;
+		width: 75%;
+	}
+	.navbar .navbar-brand img {
+		width: 206px;
+	}
+	.navbar .navbar-text {
+		margin: 0 0 5px;
+	}
+	h1, .h1 {
+		font-size: 30px;
+	}
+	h2, .h2 {
+		font-size: 25px;
+	}
+	h3, .h3 {
+		font-size: 20px;
+	}
+}
+
+/* XS - tablet only */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* MD - medium screen only */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+/* DESKTOP - medium screen and Up */
+@media (min-width: 992px){
+
+}

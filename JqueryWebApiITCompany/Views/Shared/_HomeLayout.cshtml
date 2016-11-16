@@ -8,9 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
-    <title>@ViewBag.Title - Metro BSMS: Bus Stop Management System</title>
+    <title>@ViewBag.Title - IT Companies</title>
     <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
-
+    <link href="~/Content/styles.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!--[if IE 7]><link rel="stylesheet" type="text/css" media="all" href="css/ie7.css" />< ![endif]-->
@@ -30,7 +30,7 @@
         <div class="container">
             <div class="clearfix">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="@(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "/" : "/Home/Index")" title="Bus Stop Management System"><img src="~/img/bsms-logo.png" alt="Metro BSMS - Bus Stop Management System" /></a>
+                    <a class="navbar-brand" href="@(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "/" : "/Home/Index")" title="Bus Stop Management System"><img src="~/Images/bsms-logo.png" alt="Metro BSMS - Bus Stop Management System" /></a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                 </div>
                 @Html.Partial("_LoginPartial")
