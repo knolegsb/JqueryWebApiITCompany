@@ -1470,6 +1470,7 @@
     <Content Include="Views\Shared\ModalPartials\Details.cshtml" />
     <Content Include="Views\Shared\ModalPartials\Delete.cshtml" />
     <Content Include="Views\ITCompany\Index.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,7 +3,7 @@
     //Layout = "~/Views/Shared/_JqueryLayout.cshtml";
     Layout = null;
 }
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>IT Companies Rank</title>
@@ -15,14 +15,14 @@
     <link rel="stylesheet" href="~/Content/layout.css">
     <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script charset="utf-8" src="//cdn.datatables.net/1.10.6/js/jquery.dataTables.js"></script>
-    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>*@
     @*<script src="~/Scripts/ajaxApp.js"></script>*@
     @*<style>
         .hiddenId{
             visibility: hidden;
         }
     </style>*@
-</head>
+@*</head>
 <body>
 
     <div id="page_container">
@@ -48,7 +48,7 @@
         </table>
     </div>
 
-    <div class="lightbox_bg"></div>
+    <div class="lightbox_bg"></div>*@
 
     @*<div class="lightbox_container">
             <div class="lightbox_close"></div>
@@ -110,7 +110,7 @@
             </div>
         </div>*@
 
-    <div class="lightbox_container">
+    @*<div class="lightbox_container">
         <div class="lightbox_close"></div>
 
         <div class="lightbox_content">
@@ -196,14 +196,14 @@
         </div>
     </div>
 </body>
-</html>
+</html>*@
 
 
 @*@section Scripts{*@
 @*<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>*@
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(function () {
         var table = $("#table_companies").DataTable({
             ajax: {
@@ -511,7 +511,106 @@
         });
 
     });
-</script>
+</script>*@
 
 @*}*@
 
+
+
+@{
+    ViewBag.Title = "Bus Stops";
+}
+
+<h1>Reports</h1>
+@*<p>Select a report.</p>*@
+
+<!-- CONTENT -->
+<div class="content">
+    <p>Select a report.</p>
+    <br />
+    <div class="row">
+        <div class="media col-sm-6" style="margin-top:15px;">
+            <div class="media-left col-xs-3">
+                <a href="@Url.Action("AdaComplianceReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a>
+            </div>
+            <div class="media-body">
+                <h3 class="media-heading">ADA Compliance Report</h3>
+                <p>List of all bus stops that have ADA compliance issues. </p>
+                @Html.ActionLink("View Report", "AdaComplianceReport", "Report")
+                @*<a href="report-ada-general.html">View Report</a>*@
+            </div>
+        </div>
+        <div class="media col-sm-6">
+            <div class="media-left col-xs-3">
+                <a href="@Url.Action("AdaRepairCostReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a>
+            </div>
+            <div class="media-body">
+                <h3 class="media-heading">ADA Repair Cost Report</h3>
+                <p>List of all bus stops that have ADA compliance issues and the cost to repair per bus stop. </p>
+                @Html.ActionLink("View Report", "AdaRepairCostReport", "Report")
+                @*<a href="report-ada-costs.html">View Report</a>*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="media col-sm-6" style="margin-top:15px;">
+            <div class="media-left col-xs-3"><a href="@Url.Action("Index", "BusStop")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-body">
+                <h3 class="media-heading">Single Bus Stop Report</h3>
+                <p>To find information about a specific bus stop or bus stop by ID, search the Bus Stops list.  </p>
+                @Html.ActionLink("View Report", "Index", "BusStop")
+                @*<a href="bus-stops.html">View All Bus Stops</a>*@
+            </div>
+        </div>
+        <div class="media col-sm-6">
+            <div class="media-left col-xs-3"> <a href="@Url.Action("CityOwnedBusStopsReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-body">
+                <h3 class="media-heading">City-Owned Bus Stops Report</h3>
+                <p>List of all bus stops within a city.</p>
+                @Html.ActionLink("View Report", "CityOwnedBusStopsReport", "Report")
+                @*<a href="report-city-stops.html">View Report</a>*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="media col-sm-6" style="margin-top:15px;">
+            <div class="media-left col-xs-3"> <a href="@Url.Action("WorkOrdersReport", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-body">
+                <h3 class="media-heading">Work Orders Report</h3>
+                <p>View work order activity within a certain date range.</p>
+                @Html.ActionLink("View Report", "WorkOrdersReport", "Report")
+                @*<a href="report-work-orders.html">View Report</a>*@
+            </div>
+        </div>
+        <div class="media col-sm-6">
+            <div class="media-left col-xs-3"> <a href="@Url.Action("AuditLogs", "Management")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-body">
+                <h3 class="media-heading">Audit Trail Report</h3>
+                <p>Audit trail report showing data changes (on Bus Stops, Work Orders and User Profiles) and the user who performed the change. </p>
+                @Html.ActionLink("View Report", "AuditLogs", "Management")
+                @*<a href="audit-logs.html">View Audit Logs</a>*@
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="media col-sm-6" style="margin-top:15px;">
+            <div class="media-left col-xs-3"> <a href="@Url.Action("CustomReportTool", "Report")"> <img class="media-object img-responsive" src="/img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-body">
+                <h3 class="media-heading">Custom Report Tool</h3>
+                <p>Custom reports using field selector. </p>
+                @Html.ActionLink("View Report", "CustomReport", "Report")
+                @*<a href="report-custom.html">Create a Custom Report</a>*@
+            </div>
+        </div>
+        <div class="media col-sm-6">
+            <div class="media-left col-xs-3"> <a href="@Url.Action("GeoLocationReport", "Report")"> <img class="media-object img-responsive" src="img/bsms-icons-reports.png"> </a> </div>
+            <div class="media-body">
+                <h3 class="media-heading">Geo Location Report</h3>
+                <p>View Bus Stops on a Map. </p>
+                @Html.ActionLink("View Report", "GeoLocationReport", "Report")
+                @*<a href="audit-logs.html">View Audit Logs</a>*@
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .content -->
