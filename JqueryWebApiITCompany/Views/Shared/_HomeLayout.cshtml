@@ -26,11 +26,11 @@
 
     <!-- HEADER -->
 
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-inverse" style="background-color: #bde6fb;">
         <div class="container">
-            <div class="clearfix">
+            <div class="clearfix">                
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="@(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "/" : "/Home/Index")" title="Bus Stop Management System"><img src="~/Images/bsms-logo.png" alt="Metro BSMS - Bus Stop Management System" /></a>
+                    <a class="" href="@(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "/" : "/Home/Index")" title="MVC 5 IT Company Rankings"><img src="~/Images/The-IT-Co-IT-Is-About-Dynamic-Relationships.png" height="180%" alt="MVC 5 IT Company Rankings" /></a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                 </div>
                 @Html.Partial("_LoginPartial")
@@ -41,21 +41,13 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "BusStop" ? "active" : "")">@Html.ActionLink("Bus Stops", "Index", "BusStop")</li>
-                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "WorkOrder" ? "active" : "")">@Html.ActionLink("Work Orders", "Index", "WorkOrder")</li>
-                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Report" ? "active" : "")">@Html.ActionLink("Reports", "Index", "Report")</li>
-                        <li class="@((ViewContext.RouteData.Values["Controller"].ToString() == "Users") || (ViewContext.RouteData.Values["Controller"].ToString() == "Account")   ? "active" : "")">@Html.ActionLink("Users", "Index", "Users")</li>
-                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Management" ? "active" : "")">@Html.ActionLink("Management", "Index", "Management")</li>
-
-                        @*<li role="presentation" class="dropdown @(ViewContext.RouteData.Values["Controller"].ToString() == "Management" ? "active" : "")">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"> Management <span class="caret"></span> </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>@Html.ActionLink("Audit Logs", "AuditLogs", "Management")</li>
-                                    <li class="divider"></li>
-                                    <li><a href="data-import.html" title="Reports">Data Import</a></li>
-                                    <li><a href="data-export.html" title="Reports">Data Export</a></li>
-                                </ul>
-                            </li>*@
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Angular" ? "active" : "")">@Html.ActionLink("Angular", "Index", "Angular")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "SFPCompany" ? "active" : "")">@Html.ActionLink("SFPCompany", "Index", "SFPCompany")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "JqueryModal" ? "active" : "")">@Html.ActionLink("JqueryModal", "Index", "JqueryModal")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "JqueryCompany" ? "active" : "")">@Html.ActionLink("JqueryCompany", "Index", "JqueryCompany")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Company" ? "active" : "")">@Html.ActionLink("MVC5Company", "Index", "Company")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "ITCompany" ? "active" : "")">@Html.ActionLink("ITCompany", "Index", "ITCompany")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "DataTables" ? "active" : "")">@Html.ActionLink("ITCompany II", "Index", "DataTables")</li>
                     </ul>
                 </div>
             }
@@ -67,8 +59,7 @@
     <!-- BODY -->
 
     <div class="container body">
-
-        @*@Html.MvcSiteMap().SiteMapPath()*@
+       
         @RenderBody()
     </div>
 
@@ -78,19 +69,18 @@
             {
                 <ul class="list-inline">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Bus Stops", "Index", "BusStop")</li>
-                    <li>@Html.ActionLink("Work Orders", "Index", "WorkOrder")</li>
-                    <li>@Html.ActionLink("Reports", "Index", "Report")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Management", "Index", "Management")</li>
-                    @*<li>@Html.ActionLink("Audit Logs", "AuditLogs", "Management")</li>
-                        <li>@Html.ActionLink("Data Import", "ImportData", "Management")</li>
-                        <li>@Html.ActionLink("Data Export", "Index", "Home")</li>*@
+                    <li>@Html.ActionLink("Angular", "Index", "Angular")</li>
+                    <li>@Html.ActionLink("SFPCompany", "Index", "SFPCompany")</li>
+                    <li>@Html.ActionLink("JqueryModal", "Index", "JqueryModal")</li>
+                    <li>@Html.ActionLink("JqueryCompany", "Index", "JqueryCompany")</li>
+                    <li>@Html.ActionLink("MVC5Company", "Index", "Company")</li>
+                    <li>@Html.ActionLink("ITCompany", "Index", "ITCompany")</li>
+                    <li>@Html.ActionLink("ITCompany II", "Index", "DataTables")</li>
                 </ul>
             }
             <p>
-                Metro BSMS: Bus Stop Management System<br>
-                &copy; Copyright @DateTime.Now.Year Metro
+                MVC 5 Form View DataTable Samples<br>
+                &copy; Copyright @DateTime.Now.Year MVC 5
             </p>
         </div>
     </div>
